@@ -169,7 +169,7 @@ class SyncProductsCommand extends Command
                     $currentCreatedProductsNb = 0;
                 }
 
-                if(!in_array($localProduct, $products)) {
+                if(!in_array($localProduct->getEan(), $products)) {
                     // Si on peut continuer, on est dans le cas d'un ajout de produit
                     $ean = $localProduct->getEan();
                     //$logger->info('produit '.$ean.' à ajouter !');
