@@ -1,0 +1,40 @@
+AppBundle\Entity\OrderHeader:
+    OrderHeader_1:
+        id: '1'
+        idWeb: '1'
+        statusId: '1'
+        paymentStatus: '1'
+
+        idLibrisoft: null
+        createdAtDate: <(new \DateTime('2017-10-17T19:30:00'))>
+        createdAtTime: <(new \DateTime('2017-10-17T19:30:00'))>
+        statusDate: <(new \DateTime('2017-10-17T19:30:00'))>
+
+        paymentId: '1'
+        shippingId: '1'
+        billedCustomer: '1'
+        
+        netTotal: '19.00'
+        shippingValue: '4.32'
+        weight: '402.00'
+
+        billingTitle: '2'
+        billingLastName: 'Samir'
+        billingFirstName: 'Jamali'
+        billingSocietyName: null
+        billingStreetAddress: '6 square Honoré de Balzac'
+        billingTown: 'Soisy sur Seine'
+        billingPostCode: '91450'
+        billingCountry: '72'
+        billingPhone: '0680431099'
+
+        shippingTitle: '2'
+        shippingLastName: 'Samir'
+        shippingFirstName: 'Jamali'
+        shippingSocietyName: null
+        shippingStreetAddress: '6 square Honoré de Balzac'
+        shippingTown: 'Soisy sur Seine'
+        shippingPostCode: '91450'
+        shippingCountry: '72'
+        shippingPhone: '0680431099'
+        

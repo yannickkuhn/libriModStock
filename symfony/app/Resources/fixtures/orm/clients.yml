@@ -1,0 +1,9 @@
+AppBundle\Entity\clients:
+    Client_1:
+        cli_autoid: '1'
+        cli_id: '1'
+        cli_civ: '2'
+        cli_prenom: 'Samir'
+        cli_nom: 'Jamali'
+        cli_mail: 'samir.jamali@outlook.com'
+        cli_date_inscr: <(new \DateTime('2017-10-17T19:30:00'))>

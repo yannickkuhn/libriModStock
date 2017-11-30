@@ -1,0 +1,423 @@
+[LOG - INFO - Version] - le 2017-09-07 à 17:30:58 - 
+[LOG - INFO - Version] - le 2017-09-07 à 17:30:58 - 
+[LOG - INFO - Version] - le 2017-09-07 à 17:30:58 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-09-07 à 17:30:58 - 
+[LOG - INFO - Version] - le 2017-09-07 à 17:30:58 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:31:11 - Nombre de produits supprimés (PROD_DELETED) : 80
+[LOG - DEBUG - KO - UpdateDb] - le 2017-09-07 à 17:31:11 - INSERT INTO produits 
+													(
+													prod_glndistrib, prod_type_prix, prod_deleted, 
+													rub_1_id, 
+													rub_2_id, 
+													prod_etat_id, 
+													prod_ean, 
+													prod_prixttc, 
+													prod_prixht, 
+													prod_tva1, 
+													prod_tva2, 
+													prod_parution, 
+													prod_titre, 
+													prod_editeur, 
+													prod_collection, 
+													prod_auteurs, 
+													prod_support, 
+													prod_resume, 
+													prod_poids, 
+													prod_epaisseur, 
+													prod_largeur, 
+													prod_hauteur, 
+													prod_dispo, 
+													prod_occasion, 
+													prod_validate, 
+													prod_date_ajout, 
+													prod_heure_ajout,
+													prod_namedistrib
+													) 
+													VALUES 
+													(
+													'21661000', '4', 0, 
+													'16', 
+													'', 
+													'1', 
+													'9782021352603', 
+													'19.00', 
+													'18.01', 
+													'5.50', 
+													'0', 
+													'2017-05-04', 
+													'HOMO DETRITUS', 
+													'SEUIL', 
+													'ANTHROPOCENE', 
+													'MONSAINGEON BAPTISTE', 
+													'Broché', 
+													'', 
+													'314', 
+													'16', 
+													'141', 
+													'191', 
+													'1', 
+													'0', 
+													'1', 
+													'2017-09-07', 
+													'17:31:11',
+													'INTERFORUM EDITIS'
+													)
+[LOG - INFO - Version] - le 2017-09-07 à 17:32:49 - 
+[LOG - INFO - Version] - le 2017-09-07 à 17:32:49 - 
+[LOG - INFO - Version] - le 2017-09-07 à 17:32:49 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-09-07 à 17:32:49 - 
+[LOG - INFO - Version] - le 2017-09-07 à 17:32:49 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:02 - Nombre de produits supprimés (PROD_DELETED) : 113
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:05 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:05 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-09-07 à 17:33:05 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:13:05 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:13:05 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:13:05 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-02 à 14:13:05 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:13:05 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:33 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:33 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:34 - Nombre de produits supprimés (PROD_DELETED) : 1864
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:37 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:37 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:14:37 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:41:42 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:41:42 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:41:42 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-02 à 14:41:42 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:41:42 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:42:08 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:42:08 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:42:08 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-02 à 14:42:08 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:42:08 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:25 - Nombre de produits supprimés (PROD_DELETED) : 2109
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:28 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:28 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:42:28 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:45:12 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:45:12 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:45:12 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-02 à 14:45:12 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:45:12 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:29 - Nombre de produits supprimés (PROD_DELETED) : 2109
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:32 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:32 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:45:32 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:58:31 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:58:31 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:58:31 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-02 à 14:58:31 - 
+[LOG - INFO - Version] - le 2017-10-02 à 14:58:31 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:47 - Nombre de produits supprimés (PROD_DELETED) : 2109
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:50 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:50 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-02 à 14:58:50 - 
+[LOG - INFO - Version] - le 2017-10-03 à 11:31:16 - 
+[LOG - INFO - Version] - le 2017-10-03 à 11:31:16 - 
+[LOG - INFO - Version] - le 2017-10-03 à 11:31:16 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-03 à 11:31:16 - 
+[LOG - INFO - Version] - le 2017-10-03 à 11:31:16 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:40 - Nombre de produits supprimés (PROD_DELETED) : 2109
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:44 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:44 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-03 à 11:32:44 - 
+[LOG - INFO - Version] - le 2017-10-07 à 11:47:30 - 
+[LOG - INFO - Version] - le 2017-10-07 à 11:47:30 - 
+[LOG - INFO - Version] - le 2017-10-07 à 11:47:30 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-07 à 11:47:30 - 
+[LOG - INFO - Version] - le 2017-10-07 à 11:47:30 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:00 - Nombre de produits supprimés (PROD_DELETED) : 2097
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:04 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:04 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 11:49:04 - 
+[LOG - INFO - Version] - le 2017-10-07 à 12:50:54 - 
+[LOG - INFO - Version] - le 2017-10-07 à 12:50:54 - 
+[LOG - INFO - Version] - le 2017-10-07 à 12:50:54 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-07 à 12:50:54 - 
+[LOG - INFO - Version] - le 2017-10-07 à 12:50:54 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:08 - Nombre de produits supprimés (PROD_DELETED) : 2141
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:11 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:11 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 12:51:11 - 
+[LOG - INFO - Version] - le 2017-10-07 à 19:00:51 - 
+[LOG - INFO - Version] - le 2017-10-07 à 19:00:51 - 
+[LOG - INFO - Version] - le 2017-10-07 à 19:00:51 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-07 à 19:00:51 - 
+[LOG - INFO - Version] - le 2017-10-07 à 19:00:51 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:04 - Nombre de produits supprimés (PROD_DELETED) : 2141
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:08 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:08 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-07 à 19:01:08 - 
+[LOG - INFO - Version] - le 2017-10-12 à 09:41:37 - 
+[LOG - INFO - Version] - le 2017-10-12 à 09:41:37 - 
+[LOG - INFO - Version] - le 2017-10-12 à 09:41:37 - Lancement du webservice - version du site 3.0.4.2...
+[LOG - INFO - Version] - le 2017-10-12 à 09:41:37 - 
+[LOG - INFO - Version] - le 2017-10-12 à 09:41:37 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - Options de démarrage :
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > log_avancement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > log_step : 1000
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > is_archive : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > is_server_ovh_mutu : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > php5cmd : php5
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > forceFrontProcess : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > deleteAllProducts : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > typePrixPapeterie : 6
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > deletePapeterieProducts : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > sectorisationIpreFace : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > poidspardefaut : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > libriweb_uniquement : 1
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > systeme utilise : linux
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - > projet_colibri : 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - ------------------------------------------------------------------------
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - Lancement de la fonction UPDATEDB() avec les paramètres : user : WSzenobi
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - Codes de dispo supprimés : 0
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:19 - Nombre de produits supprimés (PROD_DELETED) : 2143
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:22 - LIBRIWEB s'est terminé avec succès
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:22 - 
+[LOG - INFO - OK - UpdateDb] - le 2017-10-12 à 09:47:22 - 

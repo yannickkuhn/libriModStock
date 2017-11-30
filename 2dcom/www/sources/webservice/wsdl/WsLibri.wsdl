@@ -1,0 +1,562 @@
+﻿<?xml version="1.0"?>
+<!-- partie 1 : Definitions -->
+<definitions name="WsLibri" 
+		targetNamespace="urn:WsLibri" 
+		xmlns:typens="urn:WsLibri" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+		xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns="http://schemas.xmlsoap.org/wsdl/">
+		
+	<!-- partie 2 : Types-->
+	<types>
+    	<xsd:schema 	xmlns="http://www.w3.org/2001/XMLSchema" 
+			targetNamespace="urn:WsLibri">
+ 		</xsd:schema>
+ 	</types>
+	
+	<!-- partie 3 : Message -->
+	<!-- ADD -->
+	<message name="addRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="addResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- ADD FAVORITE -->
+	<message name="add_favoriteRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="add_favoriteResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- DELETE -->
+	<message name="deleteRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="deleteResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- DELETE FAVORITE -->
+	<message name="delete_favoriteRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="delete_favoriteResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- CHECK -->
+	<message name="checkRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="checkResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- CHECK EXTENDED -->
+	<message name="check_extendedRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="check_extendedResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- LISTALL -->
+	<message name="listallRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="listallResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- LISTIMG -->
+	<message name="listimgRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="listimgResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- SYNCINFO -->
+	<message name="syncinfoRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="syncinfoResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- GETDATAS -->
+	<message name="getdatasRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="getdatasResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- DLCMD -->
+	<message name="dlcmdRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="dlcmdResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- DLDEVIS -->
+	<message name="dldevisRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="dldevisResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- EDSTATUT -->
+	<message name="edstatutRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="edstatutResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	
+	<!-- UPDATEDB -->
+	<message name="updatedbRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="updatedbResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- UPDATEIMG -->
+	<message name="updateimgRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="updateimgResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- UPDATECLIDB -->
+	<message name="updateclidbRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="updateclidbResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- UPDATESTOCK -->
+	<message name="updatestockRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="updatestockResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- GETVERSION -->
+	<message name="getVersionRequest">
+		<part name="data" type="xsd:string"/>
+	</message>
+	<message name="getVersionResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+
+	<!-- partie 4 : Port Type -->
+	<portType name="WsLibriPort">
+		<!-- partie 5 : Operation -->
+		<!-- ADD -->
+		<operation name="add">
+			<input message="typens:addRequest"/>
+			<output message="typens:addResponse"/>
+		</operation>
+		
+		<!-- ADD FAVORITE -->
+		<operation name="add_favorite">
+			<input message="typens:add_favoriteRequest"/>
+			<output message="typens:add_favoriteResponse"/>
+		</operation>
+
+		<!-- DELETE -->
+		<operation name="delete">
+			<input message="typens:deleteRequest"/>
+			<output message="typens:deleteResponse"/>
+		</operation>
+
+		<!-- DELETE FAVORITE -->
+		<operation name="delete_favorite">
+			<input message="typens:delete_favoriteRequest"/>
+			<output message="typens:delete_favoriteResponse"/>
+		</operation>
+		
+		<!-- CHECK -->
+		<operation name="check">
+			<input message="typens:checkRequest"/>
+			<output message="typens:checkResponse"/>
+		</operation>
+
+		<!-- CHECK EXTENDED -->
+		<operation name="check_extended">
+			<input message="typens:check_extendedRequest"/>
+			<output message="typens:check_extendedResponse"/>
+		</operation>
+		
+		<!-- LISTALL -->
+		<operation name="listall">
+			<input message="typens:listallRequest"/>
+			<output message="typens:listallResponse"/>
+		</operation>
+
+		<!-- LISTIMG -->
+		<operation name="listimg">
+			<input message="typens:listimgRequest"/>
+			<output message="typens:listimgResponse"/>
+		</operation>
+		
+		<!-- SYNCINFO -->
+		<operation name="syncinfo">
+			<input message="typens:syncinfoRequest"/>
+			<output message="typens:syncinfoResponse"/>
+		</operation>
+		
+		<!-- GETDATAS -->
+		<operation name="getdatas">
+			<input message="typens:getdatasRequest"/>
+			<output message="typens:getdatasResponse"/>
+		</operation>
+		
+		<!-- DLCMD -->
+		<operation name="dlcmd">
+			<input message="typens:dlcmdRequest"/>
+			<output message="typens:dlcmdResponse"/>
+		</operation>
+		
+		<!-- DLDEVIS -->
+		<operation name="dldevis">
+			<input message="typens:dldevisRequest"/>
+			<output message="typens:dldevisResponse"/>
+		</operation>
+		
+		<!-- EDSTATUT -->
+		<operation name="edstatut">
+			<input message="typens:edstatutRequest"/>
+			<output message="typens:edstatutResponse"/>
+		</operation>
+		
+		<!-- UPDATEDB -->
+		<operation name="updatedb">
+			<input message="typens:updatedbRequest"/>
+			<output message="typens:updatedbResponse"/>
+		</operation>
+
+		<!-- UPDATEIMG -->
+		<operation name="updateimg">
+			<input message="typens:updateimgRequest"/>
+			<output message="typens:updateimgResponse"/>
+		</operation>
+
+		<!-- UPDATECLIDB -->
+		<operation name="updateclidb">
+			<input message="typens:updateclidbRequest"/>
+			<output message="typens:updateclidbResponse"/>
+		</operation>
+
+		<!-- UPDATECLIDB -->
+		<operation name="updatestock">
+			<input message="typens:updatestockRequest"/>
+			<output message="typens:updatestockResponse"/>
+		</operation>
+
+		<!-- GETVERSION -->
+		<operation name="getVersion">
+			<input message="typens:getVersionRequest"/>
+			<output message="typens:getVersionResponse"/>
+		</operation>
+
+	</portType>
+
+	<!-- partie 6 : Binding -->
+	<binding name="WsLibriBinding" type="typens:WsLibriPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		
+		<!-- ADD -->
+		<operation name="add">
+			<soap:operation soapAction="addAction"/>
+			<input name="addRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="addResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+
+		<!-- ADD FAVORITE -->
+		<operation name="add_favorite">
+			<soap:operation soapAction="add_favoriteAction"/>
+			<input name="add_favoriteRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="add_favoriteResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- DELETE -->
+		<operation name="delete">
+			<soap:operation soapAction="deleteAction"/>
+			<input name="deleteRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="deleteResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- DELETE FAVORITE -->
+		<operation name="delete_favorite">
+			<soap:operation soapAction="delete_favoriteAction"/>
+			<input name="delete_favoriteRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="delete_favoriteResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+
+		<!-- CHECK -->
+		<operation name="check">
+			<soap:operation soapAction="checkAction"/>
+			<input name="checkRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="checkResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- CHECK EXTENDED -->
+		<operation name="check_extended">
+			<soap:operation soapAction="check_extendedAction"/>
+			<input name="check_extendedRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="check_extendedResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+
+		<!-- LISTALL -->
+		<operation name="listall">
+			<soap:operation soapAction="listallAction"/>
+			<input name="listallRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="listallResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+
+		<!-- LISTIMG -->
+		<operation name="listimg">
+			<soap:operation soapAction="listimgAction"/>
+			<input name="listimgRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="listimgResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- SYNCINFO -->
+		<operation name="syncinfo">
+			<soap:operation soapAction="syncinfoAction"/>
+			<input name="syncinfoRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="syncinfoResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- GETDATAS -->
+		<operation name="getdatas">
+			<soap:operation soapAction="getdatasAction"/>
+			<input name="getdatasRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="getdatasResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- DLCMD -->
+		<operation name="dlcmd">
+			<soap:operation soapAction="dlcmdAction"/>
+			<input name="dlcmdRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="dlcmdResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- DLDEVIS -->
+		<operation name="dldevis">
+			<soap:operation soapAction="dldevisAction"/>
+			<input name="dldevisRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="dldevisResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- EDSTATUT -->
+		<operation name="edstatut">
+			<soap:operation soapAction="edstatutAction"/>
+			<input name="edstatutRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="edstatutResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- UPDATEDB -->
+		<operation name="updatedb">
+			<soap:operation soapAction="updatedbAction"/>
+			<input name="updatedbRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="updatedbResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		
+		<!-- UPDATEIMG -->
+		<operation name="updateimg">
+			<soap:operation soapAction="updateimgAction"/>
+			<input name="updateimgRequest">
+				<soap:body 	use="encoded" 
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="updateimgResponse">
+				<soap:body 	use="encoded" 
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+
+		<!-- UPDATECLIDB -->
+		<operation name="updateclidb">
+			<soap:operation soapAction="updateclidbAction"/>
+			<input name="updateclidbRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="updateclidbResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+
+		<!-- UPDATESTOCK -->
+		<operation name="updatestock">
+			<soap:operation soapAction="updatestockAction"/>
+			<input name="updatestockRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="updatestockResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:WsLibri" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+
+		<!-- GETVERSION -->
+		<operation name="getVersion">
+			<soap:operation soapAction="getVersionAction"/>
+			<input name="getVersionRequest">
+			<soap:body 	use="encoded"
+					namespace="urn:WsLibri"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="getVersionResponse">
+
+			<soap:body 	use="encoded"
+					namespace="urn:WsLibri"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>	
+		
+	</binding>
+
+	<!-- partie 7 : Service -->
+	<service name="WsLibriService">
+		<documentation>SOAP dédié aux applications Librisoft</documentation>
+		<!-- partie 8 : Port -->
+		<port name="WsLibriPort" binding="typens:WsLibriBinding">
+			<soap:address location="http://www.librairiezenobi.com/2dcom/www/ws.php"/>
+		</port>
+	</service>
+</definitions>
