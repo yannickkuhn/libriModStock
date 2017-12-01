@@ -48,10 +48,11 @@ class GetOrdersCommand extends Command
 
         $this->order_status_to_test = ['processing', 'shipped', 'awaiting-shipment'];
         $this->shippings = [
-            "Colissimo"         => 1,
-            "Chronopost"        => 2,
-            "Mondial Relay"     => 3,
-            "Relais Colis"      => 4,
+            "Colissimo"             => 1,
+            "Chronopost"            => 2,
+            "Mondial Relay"         => 3,
+            "Relais Colis"          => 4,
+            "Livraison gratuite"    => 5
         ];
 
         parent::__construct();
@@ -157,12 +158,16 @@ class GetOrdersCommand extends Command
                             else
                                 $shippingAddressPhone = $wsorder["shipping"]["phone"];
 
-                            $payed = $wsorder["payment_details"]["paid"];
+                            $logger->info("Méthode de paiement utilisée : ".$wsorder["payment_method"]." !");
+
+                            $payment_method = $wsorder["payment_method"];
                             $paymentId = '1';
-                            if($payed == true)
-                                $paymentId = '1';
-                            else
-                                $paymentId = '2';
+                            $payed = '1';
+
+                            if($payment_method == "cod") {
+                                $paymentId = '3';
+                                $payed = '0';
+                            }
 
                             $order = new OrderHeader();
                             $order
