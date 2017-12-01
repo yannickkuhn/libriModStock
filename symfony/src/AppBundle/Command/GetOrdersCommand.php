@@ -162,7 +162,7 @@ class GetOrdersCommand extends Command
                             if($payed == true)
                                 $paymentId = '1';
                             else
-                                $paymentId = '0';
+                                $paymentId = '2';
 
                             $order = new OrderHeader();
                             $order
