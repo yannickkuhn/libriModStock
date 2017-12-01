@@ -253,21 +253,17 @@ class GetOrdersCommand extends Command
 
             if($totalOrdersDownloaded == 0) {
             	$logger->info('Aucune commande en attente de téléchargement ...');
-                $message = \Swift_Message::newInstance()
-                            ->setSubject('[SITE INTERNET] - Synchronisation des commandes à '.date('d/m/Y à H:i:s'))
-                            ->setFrom($this->mailer_from)
-                            ->setTo($this->mailer_to)
-                            ->setBody("Bonjour,\r\n\r\n"."Aucune commande en attente de téléchargement !\r\nA bientôt sur librairiezenobi.com");
-                $this->mailer->send($message);
+                $this->send_mail(
+                    '[SITE INTERNET] - Synchronisation des commandes à '.date('d/m/Y à H:i:s'),
+                    "Bonjour,\r\n\r\n"."Aucune commande en attente de téléchargement !\r\nA bientôt sur librairiezenobi.com"
+                );
             } else {
             	$logger->info('Nombre de commandes téléchargées : '.$totalOrdersDownloaded);
             	$logger->info('Nombre de lignes de commandes téléchargées : '.$totalOrderLinesDownloaded);
-                $message = \Swift_Message::newInstance()
-                            ->setSubject('[SITE INTERNET] - Synchronisation des commandes à '.date('d/m/Y à H:i:s'))
-                            ->setFrom($this->mailer_from)
-                            ->setTo($this->mailer_to)
-                            ->setBody("Bonjour,\r\n\r\n".$totalOrdersDownloaded." nouvelle(s) commande(s) vient/viennent d'être téléchargée(s) dans la base intermédiaire de Librisoft. Les commandes Internet seront récupérées lors de la prochaine exécution de l'interface Librisoft/Internet (dans Librisoft : menu Outil/Interface librisoft/Internet)\r\n. Numéros de commandes concernées : ".print_r($ordersDownloaded, true).".\r\n A bientôt sur librairiezenobi.com");
-                $this->mailer->send($message);
+                $this->send_mail(
+                    '[SITE INTERNET] - Synchronisation des commandes à '.date('d/m/Y à H:i:s'),
+                    "Bonjour,\r\n\r\n".$totalOrdersDownloaded." nouvelle(s) commande(s) vient/viennent d'être téléchargée(s) dans la base intermédiaire de Librisoft. Les commandes Internet seront récupérées lors de la prochaine exécution de l'interface Librisoft/Internet (dans Librisoft : menu Outil/Interface librisoft/Internet)\r\n. Numéros de commandes concernées : ".print_r($ordersDownloaded, true).".\r\n A bientôt sur librairiezenobi.com"
+                );
             }
             $logger->info('Synchronisation des commandes terminée !');
 
@@ -278,7 +274,7 @@ class GetOrdersCommand extends Command
         }
     }
 
-    public function getGender(OutputInterface $output, string $firstName)
+    private function getGender(OutputInterface $output, string $firstName)
     {
     	$logger = $this->logger;
 
@@ -307,5 +303,39 @@ class GetOrdersCommand extends Command
                 return 1;
             }
         }
+    }
+
+    private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
+    {
+        if($mail == null)
+            $mail = 'yk@2dcom.fr'; 
+        if($sujet == null)
+            $sujet = "Test depuis le default controller ... !";
+        if($message_txt == null)
+            $message_txt = "Salut à tous, voici un e-mail envoyé par un script PHP.";
+        
+        if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail))
+            $passage_ligne = "\r\n";
+        else
+            $passage_ligne = "\n";
+
+        $message_html = "<html><head></head><body>".$message_txt."</body></html>";
+        $boundary = "-----=".md5(rand());
+        
+        $header = "From: \"Librairie Zenobi\"<admin@librairiezenobi.com>".$passage_ligne;
+        $header.= "Reply-to: \"Librairie Zenobi\" <admin@librairiezenobi.com>".$passage_ligne;
+        $header.= "MIME-Version: 1.0".$passage_ligne;
+        $header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
+        $message = $passage_ligne."--".$boundary.$passage_ligne;
+        $message.= "Content-Type: text/plain; charset=\"UTF-8\"".$passage_ligne;
+        $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+        $message.= $passage_ligne.$message_txt.$passage_ligne;
+        $message.= $passage_ligne."--".$boundary.$passage_ligne;
+        $message.= "Content-Type: text/html; charset=\"UTF-8\"".$passage_ligne;
+        $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+        $message.= $passage_ligne.$message_html.$passage_ligne;
+        $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+        $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+        mail($mail,$sujet,$message,$header);
     }
 }

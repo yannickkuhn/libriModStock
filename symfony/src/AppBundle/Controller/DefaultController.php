@@ -24,7 +24,7 @@ class DefaultController extends Controller
         return $this->render('main/homepage.html.twig');
     }
 
-    private function send_mail($mail = null, $sujet = null, $message_txt = null, $header = null)
+    private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
     {
         if($mail == null)
             $mail = 'yk@2dcom.fr'; 

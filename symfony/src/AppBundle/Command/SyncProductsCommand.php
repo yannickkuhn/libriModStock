@@ -189,18 +189,50 @@ class SyncProductsCommand extends Command
             $logger->info('Nombre de produits mis à jour : '.$updatedProductsNb.'');
             $logger->info('Synchronisation terminée pour les mises à jour de produits !');
 
-            $message = \Swift_Message::newInstance()
-                        ->setSubject('[SITE INTERNET] - Synchronisation des produits à '.date('d/m/Y à H:i:s'))
-                        ->setFrom($this->mailer_from)
-                        ->setTo($this->mailer_to)
-                        ->setBody("Bonjour,\r\n\r\nVoici ci-joint le résultat de la synchronisation de la base produits.\r\n".$createdProductsNb." nouveau(x) produit(s) vient/viennent d'être ajouté(s) sur le site Internet. ".$updatedProductsNb." produit(s) vient/viennent d'être mis à jour sur le site (produits déjà existants en base)\r\n. La base est complètement à jour.\r\n A bientôt sur librairiezenobi.com");
-            $this->mailer->send($message);
+            $this->send_mail(
+                '[SITE INTERNET] - Synchronisation des produits à '.date('d/m/Y à H:i:s'),
+                "Bonjour,\r\n\r\nVoici ci-joint le résultat de la synchronisation de la base produits.\r\n".$createdProductsNb." nouveau(x) produit(s) vient/viennent d'être ajouté(s) sur le site Internet. ".$updatedProductsNb." produit(s) vient/viennent d'être mis à jour sur le site (produits déjà existants en base)\r\n. La base est complètement à jour.\r\n A bientôt sur librairiezenobi.com"
+            );
 
         } catch (HttpClientException $e) {
             $logger->info($e->getMessage()); // Error message.
             $logger->info($e->getRequest()->getBody()); // Last request data.
             $logger->info($e->getResponse()->getBody()); // Last response data.
         }
+    }
+
+    private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
+    {
+        if($mail == null)
+            $mail = 'yk@2dcom.fr'; 
+        if($sujet == null)
+            $sujet = "Test depuis le default controller ... !";
+        if($message_txt == null)
+            $message_txt = "Salut à tous, voici un e-mail envoyé par un script PHP.";
+        
+        if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail))
+            $passage_ligne = "\r\n";
+        else
+            $passage_ligne = "\n";
+
+        $message_html = "<html><head></head><body>".$message_txt."</body></html>";
+        $boundary = "-----=".md5(rand());
+        
+        $header = "From: \"Librairie Zenobi\"<admin@librairiezenobi.com>".$passage_ligne;
+        $header.= "Reply-to: \"Librairie Zenobi\" <admin@librairiezenobi.com>".$passage_ligne;
+        $header.= "MIME-Version: 1.0".$passage_ligne;
+        $header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
+        $message = $passage_ligne."--".$boundary.$passage_ligne;
+        $message.= "Content-Type: text/plain; charset=\"UTF-8\"".$passage_ligne;
+        $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+        $message.= $passage_ligne.$message_txt.$passage_ligne;
+        $message.= $passage_ligne."--".$boundary.$passage_ligne;
+        $message.= "Content-Type: text/html; charset=\"UTF-8\"".$passage_ligne;
+        $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+        $message.= $passage_ligne.$message_html.$passage_ligne;
+        $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+        $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+        mail($mail,$sujet,$message,$header);
     }
 
     private function getLocalProduct($idproduct, $ean, $action = 'update')
