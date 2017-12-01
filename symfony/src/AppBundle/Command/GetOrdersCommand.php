@@ -157,13 +157,20 @@ class GetOrdersCommand extends Command
                             else
                                 $shippingAddressPhone = $wsorder["shipping"]["phone"];
 
+                            $payed = $wsorder["payment_details"]["paid"];
+                            $paymentId = '1';
+                            if($payed == true)
+                                $paymentId = '1';
+                            else
+                                $paymentId = '0';
+
                             $order = new OrderHeader();
                             $order
                                 ->setId($wsorder["id"])
                                 ->setIdWeb($wsorder["id"])
                                 ->setStatusId('1')
-                                ->setPaymentStatus('1')
-                                ->setPaymentId('1')
+                                ->setPaymentStatus($payed)
+                                ->setPaymentId($paymentId)
                                 ->setIdLibrisoft(null)
                                 ->setCreatedAtDate($createdAt)
                                 ->setCreatedAtTime($createdAt)
