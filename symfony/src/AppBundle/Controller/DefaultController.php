@@ -26,10 +26,14 @@ class DefaultController extends Controller
 
     private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
     {
+
+        $from = "admin@librairiezenobi.com";
+        $reply_to = "admin@librairiezenobi.com";
+
         if($mail == null)
-            $mail = 'yk@2dcom.fr'; 
+            $mail = 'sawsan0907@gmail.com'; 
         if($sujet == null)
-            $sujet = "Test depuis le default controller ... !";
+            $sujet = "Test envoi de mail depuis le site Internet (ceci est un message auto pour les scripts de synchronisation web) ... !";
         if($message_txt == null)
             $message_txt = "Salut à tous, voici un e-mail envoyé par un script PHP.";
         
@@ -41,8 +45,8 @@ class DefaultController extends Controller
         $message_html = "<html><head></head><body>".$message_txt."</body></html>";
         $boundary = "-----=".md5(rand());
         
-        $header = "From: \"Librairie Zenobi\"<admin@librairiezenobi.com>".$passage_ligne;
-        $header.= "Reply-to: \"Librairie Zenobi\" <admin@librairiezenobi.com>".$passage_ligne;
+        $header = "From: \"Librairie Zenobi\"<".$from.">".$passage_ligne;
+        $header.= "Reply-to: \"Librairie Zenobi\" <".$reply_to.">".$passage_ligne;
         $header.= "MIME-Version: 1.0".$passage_ligne;
         $header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
         $message = $passage_ligne."--".$boundary.$passage_ligne;
