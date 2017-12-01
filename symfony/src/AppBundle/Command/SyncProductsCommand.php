@@ -56,7 +56,7 @@ class SyncProductsCommand extends Command
             "310" => "170", "315" => "186", "320" => "171", "330" => "172", 
             "340" => "173", "400" => "174", "410" => "175", "420" => "176", 
             "500" => "178", "510" => "179"];
-        $this->logStep = 25;
+        $this->logStep = 15;
 
         parent::__construct();
     }
