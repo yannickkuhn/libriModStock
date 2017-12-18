@@ -377,7 +377,7 @@ class HikashopProduct
         $this->pricePercentage = 0;
         $this->msrp = 0;                    // ??
         $this->canonical = "";              // ??
-        $this->warehouseId = 0              // ??
+        $this->warehouseId = 0;              // ??
         $this->quantityLayout = "";         // ??
         $this->sortPrice = 0;               // ??
 
