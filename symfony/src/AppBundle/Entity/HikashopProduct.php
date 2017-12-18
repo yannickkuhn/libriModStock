@@ -335,6 +335,71 @@ class HikashopProduct
      */
     private $sortPrice;
 
+    /**
+     *
+     * Constructor.
+     *
+     */
+    function __construct() 
+    {
+        $this->parentId = 0;
+
+        $this->published = 0;
+        $this->hit = 0;
+        $this->created = 0;
+        $this->saleStartAt = 0;
+        $this->saleEndAt = 0;
+        $this->delayId = 0;
+        $this->taxId = 0;
+        //$this->type = ...;
+        $this->vendorId = 0;
+        $this->manufacturerId = 0;
+        //$this->url = ...;
+        $this->keywords = "";
+        $this->weightUnit = "g";
+        $this->modifiedAt = 0;
+        $this->metaDescription = "";
+        $this->dimensionUnit = "mm";
+        $this->maxPerOrder = 0;
+        $this->accessingBy = "all";
+        $this->groupAfterPurchase = "";     // ??
+        $this->minPerOrder = 0;
+        $this->contact = 0;
+        $this->displayQuantityField = 0;
+        $this->lastSeenDate = 0;
+        $this->sales = 0;                   // Stats ??
+        $this->waitlist = 0;                // Stats ??
+        $this->layout = "";
+        $this->averageScore = 0;            // Stats ??
+        $this->totalVote = 0;               // Stats ??
+        $this->pageTitle = "";              // ??
+        $this->alias = "";
+        $this->pricePercentage = 0;
+        $this->msrp = 0;                    // ??
+        $this->canonical = "";              // ??
+        $this->warehouseId = 0              // ??
+        $this->quantityLayout = "";         // ??
+        $this->sortPrice = 0;               // ??
+
+
+    }
+
+    /**
+     *
+     * setFromLibrisoft.
+     *
+     */
+    function setFromLibrisoft($name, $description, $quantity, $eanCode, $weight = 0, $width = 0, $length = 0, $height = 0) 
+    {
+        $this->name = $name;
+        $this->description = $description;
+        $this->quantity = $quantity;
+        $this->code = $eanCode;
+        $this->weight = $weight;
+        $this->width = $width;
+        $this->length = $length;
+        $this->height = $height;  
+    }
 
     /**
      * Set id
