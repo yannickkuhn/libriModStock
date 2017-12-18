@@ -126,9 +126,9 @@ class HikashopProduct
     private $manufacturerId;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="product_url", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_url", type="string", length=255, nullable=false)
      */
     private $url;
 
