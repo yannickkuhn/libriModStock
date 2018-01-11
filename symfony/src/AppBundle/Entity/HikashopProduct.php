@@ -15,7 +15,7 @@ class HikashopProduct
     /**
      * @var int
      *
-     * @ORM\Column(name="product_id", columnDefinition="INT(11) NOT NULL")
+     * @ORM\Column(name="product_id", columnDefinition="INT(11) UNSIGNED NOT NULL")
      * @ORM\Id
      */
     private $id;
@@ -23,7 +23,7 @@ class HikashopProduct
     /**
      * @var int
      *
-     * @ORM\Column(name="product_parent_id", columnDefinition="INT(11) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_parent_id", columnDefinition=" INT(11) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $parentId;
 
@@ -342,6 +342,11 @@ class HikashopProduct
      */
     function __construct() 
     {
+
+        // Les types LONGTEXT DOIVENT ETRE DES TYPES TEXT
+        // Il manque les clés de type index (quantity ...)
+        // Il manque les UNSIGNED SUR LES CHAMPS
+
         $this->parentId = 0;
 
         $this->published = 0;
