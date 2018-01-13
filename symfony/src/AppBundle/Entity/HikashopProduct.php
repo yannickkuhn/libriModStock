@@ -331,6 +331,34 @@ class HikashopProduct
     /**
      * @var string
      *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $isbn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $auteur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $datedeparution;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $editeur;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="product_sort_price", type="decimal", precision=17, scale=5, nullable=false, options={"default":0})
      */
     private $sortPrice;
