@@ -65,42 +65,42 @@ class HikashopProduct
     /**
      * @var int
      *
-     * @ORM\Column(name="product_hit", columnDefinition="INT(11) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_hit", columnDefinition="INT(11) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $hit;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="product_created", columnDefinition="INT(11) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_created", columnDefinition="INT(11) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $createdAt;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="product_sale_start", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_sale_start", columnDefinition="INT(10) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $saleStartAt;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="product_sale_end", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_sale_end", columnDefinition="INT(10) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $saleEndAt;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="product_delay_id", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_delay_id", columnDefinition="INT(10) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $delayId;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="product_tax_id", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_tax_id", columnDefinition="INT(10) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $taxId;
 
@@ -114,14 +114,14 @@ class HikashopProduct
     /**
      * @var int
      *
-     * @ORM\Column(name="product_vendor_id", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_vendor_id", columnDefinition="INT(10) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $vendorId;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="product_manufacturer_id", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_manufacturer_id", columnDefinition="INT(10) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $manufacturerId;
 
@@ -135,7 +135,7 @@ class HikashopProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="product_weight", type="decimal", precision=12, scale=3, nullable=false, options={"default":0})
+     * @ORM\Column(name="product_weight", type="decimal", precision=12, scale=3, nullable=false, options={"default":0, "unsigned"=true})
      */
     private $weight;
 
@@ -156,7 +156,7 @@ class HikashopProduct
     /**
      * @var int
      *
-     * @ORM\Column(name="product_modified", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_modified", columnDefinition="INT(10) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $modifiedAt;
 
@@ -198,7 +198,7 @@ class HikashopProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="product_max_per_order", columnDefinition="INT(10) NULL DEFAULT '0'")
+     * @ORM\Column(name="product_max_per_order", columnDefinition="INT(10) UNSIGNED NULL DEFAULT '0'")
      */
     private $maxPerOrder;
 
@@ -219,14 +219,14 @@ class HikashopProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="product_min_per_order", columnDefinition="INT(10) NULL DEFAULT '0'")
+     * @ORM\Column(name="product_min_per_order", columnDefinition="INT(10) UNSIGNED NULL DEFAULT '0'")
      */
     private $minPerOrder;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_contact", columnDefinition="SMALLINT(5) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_contact", columnDefinition="SMALLINT(5) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $contact;
 
@@ -240,21 +240,21 @@ class HikashopProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="product_last_seen_date", columnDefinition="INT(10) NULL DEFAULT '0'")
+     * @ORM\Column(name="product_last_seen_date", columnDefinition="INT(10) UNSIGNED NULL DEFAULT '0'")
      */
     private $lastSeenDate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_sales", columnDefinition="INT(10) NULL DEFAULT '0'")
+     * @ORM\Column(name="product_sales", columnDefinition="INT(10) UNSIGNED NULL DEFAULT '0'")
      */
     private $sales;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_waitlist", columnDefinition="SMALLINT(5) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_waitlist", columnDefinition="SMALLINT(5) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $waitlist;
 
@@ -317,7 +317,7 @@ class HikashopProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="product_warehouse_id", columnDefinition="INT(10) NOT NULL DEFAULT '0'")
+     * @ORM\Column(name="product_warehouse_id", columnDefinition="INT(10) UNSIGNED NOT NULL DEFAULT '0'")
      */
     private $warehouseId;
 
