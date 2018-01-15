@@ -5,6 +5,9 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
+use AppBundle\Entity\HikashopProduct;
+
 use AppBundle\Entity\Client;
 use AppBundle\Entity\OrderHeader;
 use AppBundle\Entity\OrderLine;
@@ -20,45 +23,34 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $this->send_mail();
         return $this->render('main/homepage.html.twig');
     }
 
-    private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
+    /**
+     * @Route("/hikashop/product/new", name="productTestCreate_page")
+     */
+    public function productTestCreateAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $hikashopProduct = new HikashopProduct();
+        $hikashopProduct->setFromLibrisoft(
+            "Petit traité de manipulation", 
+            "Robert-Vincent Joule, Jean-Léon Beauvois", 
+            "PUG", 
+            "2014", 
+            "<p>Le Petit traité de manipulation à l'usage des honnêtes gens est un essai de psychologie sociale de Robert-Vincent Joule et Jean-Léon Beauvois paru en 1987 et réédité en 2002 puis en 2014 aux Presses universitaires de Grenoble.</p>", 
+            "1122334455", 
+            -1,             // quantity
+            100,            // weight
+            5,              // width
+            10,             // length
+            15              // height
+        );
 
-        $from = "admin@librairiezenobi.com";
-        $reply_to = "admin@librairiezenobi.com";
+        $em->persist($hikashopProduct);
+        $em->flush();
 
-        if($mail == null)
-            $mail = 'sawsan0907@gmail.com'; 
-        if($sujet == null)
-            $sujet = "Test envoi de mail depuis le site Internet (ceci est un message auto pour les scripts de synchronisation web) ... !";
-        if($message_txt == null)
-            $message_txt = "Salut à tous, voici un e-mail envoyé par un script PHP.";
-        
-        if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail))
-            $passage_ligne = "\r\n";
-        else
-            $passage_ligne = "\n";
-
-        $message_html = "<html><head></head><body>".$message_txt."</body></html>";
-        $boundary = "-----=".md5(rand());
-        
-        $header = "From: \"Librairie Zenobi\"<".$from.">".$passage_ligne;
-        $header.= "Reply-to: \"Librairie Zenobi\" <".$reply_to.">".$passage_ligne;
-        $header.= "MIME-Version: 1.0".$passage_ligne;
-        $header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
-        $message = $passage_ligne."--".$boundary.$passage_ligne;
-        $message.= "Content-Type: text/plain; charset=\"UTF-8\"".$passage_ligne;
-        $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
-        $message.= $passage_ligne.$message_txt.$passage_ligne;
-        $message.= $passage_ligne."--".$boundary.$passage_ligne;
-        $message.= "Content-Type: text/html; charset=\"UTF-8\"".$passage_ligne;
-        $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
-        $message.= $passage_ligne.$message_html.$passage_ligne;
-        $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-        $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-        mail($mail,$sujet,$message,$header);
+        var_dump('création OK');
+        die();
     }
 }
