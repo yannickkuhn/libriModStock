@@ -15,8 +15,9 @@ class HikashopProduct
     /**
      * @var int
      *
-     * @ORM\Column(name="product_id", columnDefinition="INT(11) UNSIGNED NOT NULL")
+     * @ORM\Column(name="product_id", columnDefinition="INT(11) UNSIGNED NOT NULL AUTO_INCREMENT")
      * @ORM\Id
+     * @ORM\GeneratedValue
      */
     private $id;
 
@@ -371,9 +372,11 @@ class HikashopProduct
     function __construct() 
     {
 
-        // Les types LONGTEXT DOIVENT ETRE DES TYPES TEXT
-        // Il manque les clés de type index (quantity ...)
-        // Il manque les UNSIGNED SUR LES CHAMPS
+        // TODO
+        // ------------------------------------------------
+        // - Les types LONGTEXT DOIVENT ETRE DES TYPES TEXT
+        // - Il manque les clés de type index (quantity ...)
+        // ------------------------------------------------
 
         $this->parentId = 0;
         $this->published = 0;
@@ -410,10 +413,12 @@ class HikashopProduct
         $this->weightUnit = "g";
         $this->dimensionUnit = "mm";
 
-        $this->taxId = 11;                      // 11 ? Id vers une autre table sans doute
-        $this->created = new \DateTime();       // date de création
-        $this->modifiedAt = new \DateTime();    // date de modification
-        $this->alias = "";                      // sert sans doute pour la partie référencement (lien avec le nom du produit)
+        $date = new \DateTime();
+
+        $this->taxId = 11;                              // 11 ? Id vers une autre table sans doute
+        $this->createdAt = $date->getTimestamp();       // date de création
+        $this->modifiedAt = $date->getTimestamp();      // date de modification
+        $this->alias = "";                              // sert sans doute pour la partie référencement (lien avec le nom du produit)
 
     }
 
@@ -433,7 +438,7 @@ class HikashopProduct
         $this->length = $length;
         $this->height = $height;  
 
-        $this->isbn = $ean;                    
+        $this->isbn = $eanCode;                    
         $this->author = $author;
         $this->releasedAt = $releasedAt;
         $this->publisher = $publisher;
