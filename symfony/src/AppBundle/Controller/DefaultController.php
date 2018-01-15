@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\HikashopProduct;
+use AppBundle\Entity\HikashopPrice;
 
 use AppBundle\Entity\Client;
 use AppBundle\Entity\OrderHeader;
@@ -32,6 +33,10 @@ class DefaultController extends Controller
     public function productTestCreateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        // 1 - SET PRODUCT
+        // ---------------
+
         $hikashopProduct = new HikashopProduct();
         $hikashopProduct->setFromLibrisoft(
             "Petit traité de manipulation", 
@@ -47,7 +52,17 @@ class DefaultController extends Controller
             15              // height
         );
 
+        // 2 - SET PRICE
+        // ---------------
+
+        $hikashopPrice = new HikashopPrice();
+        $hikashopPrice->setFromLibrisoft(
+            "1",
+            "19.90521"
+        );
+
         $em->persist($hikashopProduct);
+        $em->persist($hikashopPrice);
         $em->flush();
 
         var_dump('création OK');
