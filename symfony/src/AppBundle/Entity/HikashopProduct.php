@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * HikashopProduct
  *
  * @ORM\Table(name="hikashop_product")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\HikashopProductRepository")
  */
 class HikashopProduct
 {
@@ -331,30 +331,30 @@ class HikashopProduct
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="isbn", type="text", nullable=true)
      */
     private $isbn;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="auteur", type="text", nullable=true)
      */
-    private $auteur;
+    private $author;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="datedeparution", type="text", nullable=true)
      */
-    private $datedeparution;
+    private $releasedAt;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="editeur", type="text", nullable=true)
      */
-    private $editeur;
+    private $publisher;
 
     /**
      * @var string
@@ -376,44 +376,44 @@ class HikashopProduct
         // Il manque les UNSIGNED SUR LES CHAMPS
 
         $this->parentId = 0;
-
         $this->published = 0;
-        $this->hit = 0;
-        $this->created = 0;
+        $this->hit = 0;                         // nombre de consultations ?
         $this->saleStartAt = 0;
         $this->saleEndAt = 0;
         $this->delayId = 0;
-        $this->taxId = 0;
-        //$this->type = ...;
+        $this->type = 'main';
         $this->vendorId = 0;
         $this->manufacturerId = 0;
-        //$this->url = ...;
+        $this->url = "";
         $this->keywords = "";
-        $this->weightUnit = "g";
-        $this->modifiedAt = 0;
         $this->metaDescription = "";
-        $this->dimensionUnit = "mm";
         $this->maxPerOrder = 0;
         $this->accessingBy = "all";
-        $this->groupAfterPurchase = "";     // ??
+        $this->groupAfterPurchase = "";         // ??
         $this->minPerOrder = 0;
         $this->contact = 0;
         $this->displayQuantityField = 0;
-        $this->lastSeenDate = 0;
-        $this->sales = 0;                   // Stats ??
-        $this->waitlist = 0;                // Stats ??
+        $this->sales = 0;                       // Stats ??
+        $this->waitlist = 0;                    // Stats ??
         $this->layout = "";
-        $this->averageScore = 0;            // Stats ??
-        $this->totalVote = 0;               // Stats ??
-        $this->pageTitle = "";              // ??
-        $this->alias = "";
+        $this->averageScore = 0;                // Stats ??
+        $this->totalVote = 0;                   // Stats ??
+        $this->pageTitle = "";                  // ??
         $this->pricePercentage = 0;
-        $this->msrp = 0;                    // ??
-        $this->canonical = "";              // ??
-        $this->warehouseId = 0;              // ??
-        $this->quantityLayout = "";         // ??
-        $this->sortPrice = 0;               // ??
+        $this->msrp = 0;                        // ??
+        $this->canonical = "";                  // ??
+        $this->warehouseId = 0;                 // ??
+        $this->quantityLayout = "";             // ??
+        $this->sortPrice = 0;                   // ??
 
+        $this->lastSeenDate = 0;                // date de la dernière consultation
+        $this->weightUnit = "g";
+        $this->dimensionUnit = "mm";
+
+        $this->taxId = 11;                      // 11 ? Id vers une autre table sans doute
+        $this->created = new \DateTime();       // date de création
+        $this->modifiedAt = new \DateTime();    // date de modification
+        $this->alias = "";                      // sert sans doute pour la partie référencement (lien avec le nom du produit)
 
     }
 
@@ -422,16 +422,21 @@ class HikashopProduct
      * setFromLibrisoft.
      *
      */
-    function setFromLibrisoft($name, $description, $quantity, $eanCode, $weight = 0, $width = 0, $length = 0, $height = 0) 
+    function setFromLibrisoft($name, $author, $publisher, $releasedAt, $description, $eanCode, $quantity = -1, $weight = 0, $width = 0, $length = 0, $height = 0) 
     {
         $this->name = $name;
         $this->description = $description;
         $this->quantity = $quantity;
-        $this->code = $eanCode;
+        $this->code = $eanCode;               
         $this->weight = $weight;
         $this->width = $width;
         $this->length = $length;
         $this->height = $height;  
+
+        $this->isbn = $ean;                    
+        $this->author = $author;
+        $this->releasedAt = $releasedAt;
+        $this->publisher = $publisher;
     }
 
     /**
