@@ -124,7 +124,7 @@ class HikashopCategory
      *
      * @ORM\Column(name="category_keywords", type="text", nullable=false)
      */
-    private $description;
+    private $keywords;
 
     /**
      * @var string
