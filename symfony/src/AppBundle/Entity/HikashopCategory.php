@@ -176,6 +176,49 @@ class HikashopCategory
     private $quantityLayout;
 
     /**
+     *
+     * Constructor.
+     *
+     */
+    function __construct() 
+    {
+        $this->description = '';
+        $this->published = 1;
+        $this->ordering = 1;    // dynamique ?
+        $this->left = 0;
+        $this->right = 0;
+        $this->depth = 1;
+        
+        $this->accessingBy = 'all';
+        $this->menu = 0;
+        $this->keywords = '';
+        $this->metaDescription = '';
+        $this->layout = '';
+        $this->pageTitle = '';
+        $this->alias = '';      // alias (slug)
+        $this->siteId = '';
+        $this->canonical = '';
+        $this->quantityLayout = '';
+
+        $date = new \DateTime();
+        $this->createdAt = $date->getTimestamp();
+        $this->modifiedAt = $date->getTimestamp();
+        $this->namekey = 'product_'.$this->createdAt;    // identifier as : product_{createdAt}
+    }
+
+    /**
+     *
+     * setFromLibrisoft.
+     *
+     */
+    function setFromLibrisoft($name, $type = 'product', $parentId = 2) 
+    {
+        $this->parentId = $parentId;
+        $this->type = $type;
+        $this->name = $name;
+    }
+
+    /**
      * Get id
      *
      * @return string
