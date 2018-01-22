@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\HikashopProduct;
 use AppBundle\Entity\HikashopPrice;
+use AppBundle\Entity\HikashopCategory;
+use AppBundle\Entity\HikashopProductCategory;
 
 use AppBundle\Entity\Client;
 use AppBundle\Entity\OrderHeader;
@@ -34,6 +36,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+
+
         // 1 - SET PRODUCT
         // ---------------
 
@@ -52,6 +56,8 @@ class DefaultController extends Controller
             15              // height
         );
 
+
+
         // 2 - SET PRICE
         // ---------------
 
@@ -61,9 +67,38 @@ class DefaultController extends Controller
             "19.90521"
         );
 
+
+
+        // 3 - SET CATEGORY
+        // ---------------
+
+        $hikashopCategory = new HikashopCategory();
+        $hikashopCategory->setFromLibrisoft(
+            "Psychologie du travail, des organisations et du personnel"
+        );
+
+        $em->persist($hikashopCategory);
         $em->persist($hikashopProduct);
         $em->persist($hikashopPrice);
+
         $em->flush();
+
+
+
+        // 4 - LINK PRODUCT/CATEGORY
+        // -------------------------
+
+        $hikashopCategoryId = $hikashopCategory->getId();
+        $hikashopProductId = $hikashopProduct->getId();
+        $hikashopProductCategory = new HikashopProductCategory();
+        $hikashopProductCategory->setFromLibrisoft(
+            $hikashopCategoryId, $hikashopProductId
+        );
+
+        $em->persist($hikashopProductCategory);
+
+        $em->flush();
+
 
         var_dump('création OK');
         die();
