@@ -15,7 +15,7 @@ class HikashopTax
     /**
      * @var int
      *
-     * @ORM\Column(name="tax_namekey", columnDefinition="VARCHAR(255) NOT NULL PRIMARY KEY")
+     * @ORM\Column(name="tax_namekey", columnDefinition="VARCHAR(255) NOT NULL")
      * @ORM\Id
      */
     private $namekey;

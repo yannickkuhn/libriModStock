@@ -43,6 +43,18 @@ class HikashopProductCategory
     private $ordering;
 
     /**
+     *
+     * setFromLibrisoft.
+     *
+     */
+    function setFromLibrisoft($categoryId, $productId, $ordering = 1) 
+    {
+        $this->categoryId = $categoryId;
+        $this->productId = $productId;
+        $this->ordering = $ordering;
+    }
+
+    /**
      * Get id
      *
      * @return string

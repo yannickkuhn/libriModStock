@@ -415,7 +415,7 @@ class HikashopProduct
 
         $date = new \DateTime();
 
-        $this->taxId = 11;                              // 11 ? Id vers une autre table sans doute
+        $this->taxId = 11;                              // 11 est la category tax dans la table hikashop_category
         $this->createdAt = $date->getTimestamp();       // date de création
         $this->modifiedAt = $date->getTimestamp();      // date de modification
         $this->alias = "";                              // sert sans doute pour la partie référencement (lien avec le nom du produit)
