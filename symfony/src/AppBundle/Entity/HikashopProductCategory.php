@@ -42,4 +42,85 @@ class HikashopProductCategory
      */
     private $ordering;
 
+    /**
+     * Get id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set categoryId
+     *
+     * @param string $categoryId
+     *
+     * @return HikashopProductCategory
+     */
+    public function setCategoryId($categoryId)
+    {
+        $this->categoryId = $categoryId;
+
+        return $this;
+    }
+
+    /**
+     * Get categoryId
+     *
+     * @return string
+     */
+    public function getCategoryId()
+    {
+        return $this->categoryId;
+    }
+
+    /**
+     * Set productId
+     *
+     * @param string $productId
+     *
+     * @return HikashopProductCategory
+     */
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
+
+    /**
+     * Get productId
+     *
+     * @return string
+     */
+    public function getProductId()
+    {
+        return $this->productId;
+    }
+
+    /**
+     * Set ordering
+     *
+     * @param string $ordering
+     *
+     * @return HikashopProductCategory
+     */
+    public function setOrdering($ordering)
+    {
+        $this->ordering = $ordering;
+
+        return $this;
+    }
+
+    /**
+     * Get ordering
+     *
+     * @return string
+     */
+    public function getOrdering()
+    {
+        return $this->ordering;
+    }
 }
