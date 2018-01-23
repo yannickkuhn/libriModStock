@@ -28,6 +28,17 @@ class HikashopTax
     private $rate;
 
     /**
+     *
+     * setFromLibrisoft.
+     *
+     */
+    function setFromLibrisoft($namekey, $rate) 
+    {
+        $this->namekey = $namekey;
+        $this->rate = $rate;
+    }
+
+    /**
      * Set namekey
      *
      * @param string $namekey

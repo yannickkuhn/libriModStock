@@ -78,6 +78,32 @@ class HikashopFile
     private $limit;
 
     /**
+     *
+     * Constructor.
+     *
+     */
+    function __construct() 
+    {
+        $this->description = '';
+        $this->type = 'product';
+        $this->freeDownload = 0;
+        $this->ordering = 0;
+        $this->limit = 0;
+    }
+
+    /**
+     *
+     * setFromLibrisoft.
+     *
+     */
+    function setFromLibrisoft($fileNameWithoutExt, $fileName, $productId) 
+    {
+        $this->name = $fileNameWithoutExt;
+        $this->path = $fileName;
+        $this->refId = $productId;
+    }
+
+    /**
      * Get id
      *
      * @return string
