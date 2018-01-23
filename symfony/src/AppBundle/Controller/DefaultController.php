@@ -10,6 +10,8 @@ use AppBundle\Entity\HikashopProduct;
 use AppBundle\Entity\HikashopPrice;
 use AppBundle\Entity\HikashopCategory;
 use AppBundle\Entity\HikashopProductCategory;
+use AppBundle\Entity\HikashopTax;
+use AppBundle\Entity\HikashopFile;
 
 use AppBundle\Entity\Client;
 use AppBundle\Entity\OrderHeader;
@@ -56,8 +58,6 @@ class DefaultController extends Controller
             15              // height
         );
 
-
-
         // 2 - SET PRICE
         // ---------------
 
@@ -67,8 +67,6 @@ class DefaultController extends Controller
             "19.90521"
         );
 
-
-
         // 3 - SET CATEGORY
         // ---------------
 
@@ -77,26 +75,48 @@ class DefaultController extends Controller
             "Psychologie du travail, des organisations et du personnel"
         );
 
+        // 4 - SET VAT (TAX)
+        // ------------------
+
+        $hikashopTax = new HikashopTax();
+        $hikashopTax->setFromLibrisoft(
+            "TVA",
+            "0.05500"
+        );
+
+
         $em->persist($hikashopCategory);
         $em->persist($hikashopProduct);
         $em->persist($hikashopPrice);
-
+        $em->persist($hikashopTax);
         $em->flush();
-
-
-
-        // 4 - LINK PRODUCT/CATEGORY
-        // -------------------------
 
         $hikashopCategoryId = $hikashopCategory->getId();
         $hikashopProductId = $hikashopProduct->getId();
+
+
+
+        // 5 - LINK PRODUCT/CATEGORY
+        // -------------------------
+
         $hikashopProductCategory = new HikashopProductCategory();
         $hikashopProductCategory->setFromLibrisoft(
-            $hikashopCategoryId, $hikashopProductId
+            $hikashopCategoryId, 
+            $hikashopProductId
         );
 
-        $em->persist($hikashopProductCategory);
+        // 6 - SET FILE
+        // ------------------
+        
+        $hikashopFile = new HikashopFile();
+        $hikashopFile->setFromLibrisoft(
+            'petit-traite',
+            'petit-traite.jpg',
+            $hikashopProductId
+        );
 
+
+        $em->persist($hikashopProductCategory);
         $em->flush();
 
 
