@@ -115,8 +115,8 @@ class DefaultController extends Controller
             $hikashopProductId
         );
 
-
         $em->persist($hikashopProductCategory);
+        $em->persist($hikashopFile);
         $em->flush();
 
 
