@@ -48,13 +48,24 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
+        default_connection: default
+        connections:
+            default:
+                driver:   pdo_mysql
+                host:     '%database_host%'
+                port:     '%database_port%'
+                dbname:   '%database_name%'
+                user:     '%database_user%'
+                password: '%database_password%'
+                charset:  UTF8
+            hikashop:
+                driver:   pdo_mysql
+                host:     '%database_host_hikashop%'
+                port:     '%database_port_hikashop%'
+                dbname:   '%database_name_hikashop%'
+                user:     '%database_user_hikashop%'
+                password: '%database_password_hikashop%'
+                charset:  UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -63,11 +74,19 @@ doctrine:
         #     path:     "%database_path%"
 
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-        hydrators:
-            cart_hydrator: 'AppBundle\Doctrine\Hydrators\CartHydrator'
+        auto_generate_proxy_classes: %kernel.debug%
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    dir: '%kernel.project_dir%/src/AppBundle/Entity/Main'
+                    AppBundle: ~
+            hikashop:
+                connection: hikashop
+                mappings:
+                    dir: '%kernel.project_dir%/src/AppBundle/Entity/Hikashop'
+                    AppBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
