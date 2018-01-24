@@ -80,13 +80,11 @@ doctrine:
             default:
                 connection: default
                 mappings:
-                    dir: '%kernel.project_dir%/src/AppBundle/Entity/Main'
                     AppBundle: ~
             hikashop:
                 connection: hikashop
                 mappings:
-                    dir: '%kernel.project_dir%/src/AppBundle/Entity/Hikashop'
-                    AppBundle: ~
+                    HikashopBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:

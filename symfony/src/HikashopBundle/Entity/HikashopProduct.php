@@ -1,14 +1,14 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace HikashopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * HikashopProduct
  *
- * @ORM\Table(name="hikashop_product")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\HikashopProductRepository")
+ * @ORM\Table(name="aoikt_hikashop_product")
+ * @ORM\Entity(repositoryClass="HikashopBundle\Repository\HikashopProductRepository")
  */
 class HikashopProduct
 {

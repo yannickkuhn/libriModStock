@@ -6,12 +6,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-use AppBundle\Entity\HikashopProduct;
-use AppBundle\Entity\HikashopPrice;
-use AppBundle\Entity\HikashopCategory;
-use AppBundle\Entity\HikashopProductCategory;
-use AppBundle\Entity\HikashopTax;
-use AppBundle\Entity\HikashopFile;
+use HikashopBundle\Entity\HikashopProduct;
+use HikashopBundle\Entity\HikashopPrice;
+use HikashopBundle\Entity\HikashopCategory;
+use HikashopBundle\Entity\HikashopProductCategory;
+use HikashopBundle\Entity\HikashopTax;
+use HikashopBundle\Entity\HikashopFile;
 
 use AppBundle\Entity\Client;
 use AppBundle\Entity\OrderHeader;
@@ -36,9 +36,11 @@ class DefaultController extends Controller
      */
     public function productTestCreateAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
 
+        // USE HIKASHOP CONNECTION
+        // ------------------------
 
+        $em = $this->getDoctrine()->getManager('hikashop');
 
         // 1 - SET PRODUCT
         // ---------------

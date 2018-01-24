@@ -1,0 +1,5 @@
+hikashop:
+    resource: "@HikashopBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
