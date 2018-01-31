@@ -415,7 +415,6 @@ class HikashopProduct
 
         $date = new \DateTime();
 
-        $this->taxId = 11;                              // 11 est la category tax dans la table hikashop_category
         $this->createdAt = $date->getTimestamp();       // date de création
         $this->modifiedAt = $date->getTimestamp();      // date de modification
         $this->alias = "";                              // sert sans doute pour la partie référencement (lien avec le nom du produit)
@@ -427,7 +426,7 @@ class HikashopProduct
      * setFromLibrisoft.
      *
      */
-    function setFromLibrisoft($name, $author, $publisher, $releasedAt, $description, $eanCode, $quantity = -1, $weight = 0, $width = 0, $length = 0, $height = 0) 
+    function setFromLibrisoft($name, $author, $publisher, $releasedAt, $description, $eanCode, $vat = 5.5, $quantity = -1, $weight = 0, $width = 0, $length = 0, $height = 0) 
     {
         $this->name = $name;
         $this->description = $description;
@@ -442,6 +441,11 @@ class HikashopProduct
         $this->author = $author;
         $this->releasedAt = $releasedAt;
         $this->publisher = $publisher;
+
+        if($vat == 5.5)
+            $this->taxId = 11;  // vat id of 5.5 % created in Hikashop by biblioweb
+        else
+            $this->taxId = 33;  // vat id of 20 % created in Hikashop by biblioweb
     }
 
     /**

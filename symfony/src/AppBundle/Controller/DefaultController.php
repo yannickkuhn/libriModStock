@@ -53,6 +53,7 @@ class DefaultController extends Controller
             "2014", 
             "<p>Le Petit traité de manipulation à l'usage des honnêtes gens est un essai de psychologie sociale de Robert-Vincent Joule et Jean-Léon Beauvois paru en 1987 et réédité en 2002 puis en 2014 aux Presses universitaires de Grenoble.</p>", 
             "1122334455", 
+            5.5,            // vat in %
             -1,             // quantity
             100,            // weight
             5,              // width
@@ -77,20 +78,9 @@ class DefaultController extends Controller
             "Psychologie du travail, des organisations et du personnel"
         );
 
-        // 4 - SET VAT (TAX)
-        // ------------------
-
-        $hikashopTax = new HikashopTax();
-        $hikashopTax->setFromLibrisoft(
-            "TVA",
-            "0.05500"
-        );
-
-
         $em->persist($hikashopCategory);
         $em->persist($hikashopProduct);
         $em->persist($hikashopPrice);
-        $em->persist($hikashopTax);
         $em->flush();
 
         $hikashopCategoryId = $hikashopCategory->getId();
