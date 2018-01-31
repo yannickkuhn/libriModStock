@@ -31,6 +31,12 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
+stof_doctrine_extensions:
+    default_locale: fr_FR
+    orm:
+        default:
+            sluggable: true
+
 swiftmailer:
    delivery_address: me@example.com
 nelmio_alice:

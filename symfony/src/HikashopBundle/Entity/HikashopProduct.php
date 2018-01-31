@@ -2,6 +2,7 @@
 
 namespace HikashopBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -290,6 +291,7 @@ class HikashopProduct
     /**
      * @var string
      *
+     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(name="product_alias", type="string", length=255, nullable=false)
      */
     private $alias;
@@ -417,8 +419,6 @@ class HikashopProduct
 
         $this->createdAt = $date->getTimestamp();       // date de création
         $this->modifiedAt = $date->getTimestamp();      // date de modification
-        $this->alias = "";                              // sert sans doute pour la partie référencement (lien avec le nom du produit)
-
     }
 
     /**

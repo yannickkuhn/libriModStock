@@ -95,6 +95,12 @@ swiftmailer:
     spool:     { type: memory }
     port:      "%mailer_port%"
 
+stof_doctrine_extensions:
+    default_locale: fr_FR
+    orm:
+        default:
+            sluggable: true
+
 #assetic:
 #    filters:
 #        scssphp:

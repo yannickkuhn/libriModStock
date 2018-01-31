@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             //new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             //new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             //new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
             new AppBundle\AppBundle(),
             new HikashopBundle\HikashopBundle(),
