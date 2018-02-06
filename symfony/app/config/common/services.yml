@@ -31,4 +31,11 @@ services:
         public: true
         tags:
             - { name: console.command }
+    app.command.sync_products_hikashop:
+        class: AppBundle\Command\SyncProductsHikashop
+        arguments: ["@doctrine.orm.entity_manager", "@doctrine.orm.hikashop_entity_manager", "@logger", "@mailer"]
+        autowire: true
+        public: true
+        tags:
+            - { name: console.command }
 

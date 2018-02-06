@@ -426,7 +426,7 @@ class HikashopProduct
      * setFromLibrisoft.
      *
      */
-    function setFromLibrisoft($name, $author, $publisher, $releasedAt, $description, $eanCode, $vat = 5.5, $quantity = -1, $weight = 0, $width = 0, $length = 0, $height = 0) 
+    function setFromLibrisoft($name, $slug, $author, $publisher, $releasedAt, $description, $eanCode, $vat = 5.5, $quantity = -1, $weight = 0, $width = 0, $length = 0, $height = 0) 
     {
         $this->name = $name;
         $this->description = $description;
@@ -441,6 +441,8 @@ class HikashopProduct
         $this->author = $author;
         $this->releasedAt = $releasedAt;
         $this->publisher = $publisher;
+
+        $this->alias = $slug;
 
         if($vat == 5.5)
             $this->taxId = 11;  // vat id of 5.5 % created in Hikashop by biblioweb
