@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use HikashopBundle\Entity\HikashopProduct;
+use AppBundle\Entity\Product;
 
 
 
@@ -23,12 +24,19 @@ class SyncProductsHikashop extends Command
     private $mailer_to;
     private $mailer_from;
 
+    private $createdProductsCount;
+    private $updatedProductsCount;
+
+
     public function __construct(EntityManagerInterface $em, EntityManagerInterface $hkem, LoggerInterface $logger, \Swift_Mailer $mailer)
     {
     	$this->em = $em;
     	$this->hkem = $hkem;
         $this->logger = $logger;
         $this->mailer = $mailer;
+
+        $this->createdProductsCount = 0;
+        $this->updatedProductsCount = 0;
 
         $this->mailer_to = "yk@2dcom.fr";
         $this->mailer_from = "yk@2dcom.fr";
@@ -49,49 +57,113 @@ class SyncProductsHikashop extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+    	$em = $this->em;
+    	$hkem = $this->hkem;
+    	$logger = $this->logger;
+
         set_time_limit(0); 
 
-        $this->logger->info('----------------------------------------------------------------------');
-        $this->logger->info('PROCEDURE HIKASHOP');
-        $this->logger->info('----------------------------------------------------------------------');
-        $this->logger->info('Lancement de la procédure de synchronisation des produits en cours ...');
-        $this->logger->info('----------------------------------------------------------------------');
+        $logger->info('----------------------------------------------------------------------');
+        $logger->info('PROCEDURE HIKASHOP');
+        $logger->info('----------------------------------------------------------------------');
+        $logger->info('Lancement de la procédure de synchronisation des produits en cours ...');
+        $logger->info('----------------------------------------------------------------------');
 
-        // create image from 2dcom url
+        $ddcomProducts = $em->getRepository('AppBundle:Product')->findBy([
+            'isDeleted' => '0'
+        ]);
 
-        $ean = "1122334455";
-        $this->get_image($ean);
+        foreach($ddcomProducts as $ddcomProduct) {
 
-        // create product
+        	// test if product ever existed in hikashop database
 
-        $hikashopProduct = new HikashopProduct();
-        $hikashopProduct->setFromLibrisoft(
-            "Petit traité de manipulation", 
-            $this->sluggify("Petit traité de manipulation"),
-            "Robert-Vincent Joule, Jean-Léon Beauvois", 
-            "PUG", 
-            "2014", 
-            "<p>Le Petit traité de manipulation à l'usage des honnêtes gens est un essai de psychologie sociale de Robert-Vincent Joule et Jean-Léon Beauvois paru en 1987 et réédité en 2002 puis en 2014 aux Presses universitaires de Grenoble.</p>", 
-            "1122334455", 
-            5.5,            // vat in %
-            -1,             // quantity
-            100,            // weight
-            5,              // width
-            10,             // length
-            15              // height
-        );
+        	$hkproduct = $hkem->getRepository('HikashopBundle:HikashopProduct')->findOneBy([
+	            'isbn' => $ddcomProduct->getEan()
+	        ]);
 
-        $this->hkem->persist($hikashopProduct);
-        $this->hkem->flush();
+            $this->createOrUpdateProduct($ddcomProduct, $hkproduct);
 
-        $this->logger->info('Fin de la synchronisation !');
+   		}
+
+        $logger->info('Nombre de produits à ajouter : '.$createdProductsCount.'');
+        $logger->info('Nombre de produits mis à jour : '.$updatedProductsCount.'');
+        $logger->info('Synchronisation terminée pour les mises à jour de produits !');
     }
 
-    private function get_image($ean, $path = "../hikashop_images/") 
+    private function createOrUpdateProduct(Product $ddcomProduct, HikashopProduct $hkproduct = null) 
+	{
+        $em = $this->em;
+        $hkem = $this->hkem;
+        $logger = $this->logger;
+
+		// create image from 2dcom url
+
+        $ean = $ddcomProduct->getEan();
+        //$this->getCover($ean);
+
+        // get stock
+
+        $stock = $em->getRepository('AppBundle:Stock')->findOneBy(["ean" => $ddcomProduct->getEan()]);
+        $stock_qte = 0;
+        if (null !== $stock && 0 < $stock->getQuantity())
+        {
+            $stock_qte = $stock->getQuantity();  
+        }
+
+        // get summary
+        $summary = "";
+        //$summary = $this->getSummary($ean);
+
+        // create hikashop product
+
+        if ($hkproduct === null) {
+            $hikashopProduct = new HikashopProduct();
+        } else {
+            $hikashopProduct = $hkproduct;
+        }
+        
+
+        $hikashopProduct->setFromLibrisoft(
+            $ddcomProduct->getTitle(), 
+            $this->sluggify($ddcomProduct->getTitle()),
+            $ddcomProduct->getAuthor(), 
+            $ddcomProduct->getPublisher(), 
+            $ddcomProduct->getParutionDate(), 
+            $summary, 
+            $ddcomProduct->getEan(),
+            $ddcomProduct->getVat1(),
+            $stock_qte,
+            $ddcomProduct->getWeight(),            
+            $ddcomProduct->getThickness(),             
+            $ddcomProduct->getWideness(),             
+            $ddcomProduct->getHeight()    
+        );
+
+        $hkem->persist($hikashopProduct);
+        $hkem->flush();
+
+        if ($hkproduct === null) {
+            $this->createdProductsCount ++;
+        }
+        else {
+            $this->updatedProductsCount ++;
+        }
+	}
+
+    private function getCover($ean, $path = "../hikashop_images/") 
     {
     	$image = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$ean.'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
     	$content = file_get_contents($image);
+
     	file_put_contents($path.$ean.'.jpg', $content);
+    }
+
+    private function getSummary($ean) 
+    {
+    	$url = 'http://bddi.2dcom.fr/GetResumeUtf8.php?user=wsbddi&pw=ErG2i8Aj&ean='.$ean;
+    	$description = (file_get_contents($url) != 'erreur resume non trouve') ? file_get_contents($url) : '';
+
+    	return $description;
     }
 
     private function sluggify($string, $separator = '-')
@@ -105,5 +177,7 @@ class SyncProductsHikashop extends Command
 	    $string = preg_replace("/[$separator]+/u", "$separator", $string);
 	    return $string;
 	}
+
+
 }
 
