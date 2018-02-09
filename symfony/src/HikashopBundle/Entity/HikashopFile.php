@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * HikashopFile
  *
  * @ORM\Table(name="aoikt_hikashop_file")
- * @ORM\Entity(repositoryClass="HikashopBundle\Repository\HikashopPriceRepository")
+ * @ORM\Entity(repositoryClass="HikashopBundle\Repository\HikashopFileRepository")
  */
 class HikashopFile
 {

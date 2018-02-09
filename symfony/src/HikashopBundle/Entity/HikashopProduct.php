@@ -426,7 +426,7 @@ class HikashopProduct
      * setFromLibrisoft.
      *
      */
-    function setFromLibrisoft($name, $slug, $author, $publisher, $releasedAt, $description, $eanCode, $vat = 5.5, $quantity = -1, $weight = 0, $width = 0, $length = 0, $height = 0) 
+    function setFromLibrisoft($name, $slug, $author, $publisher, \DateTime $releasedAt, $description, $eanCode, $vat = 5.5, $quantity = -1, $weight = 0, $width = 0, $length = 0, $height = 0) 
     {
         $this->name = $name;
         $this->description = $description;
@@ -439,7 +439,7 @@ class HikashopProduct
 
         $this->isbn = $eanCode;                    
         $this->author = $author;
-        $this->releasedAt = $releasedAt;
+        $this->releasedAt = $releasedAt->format('Y-m-d');
         $this->publisher = $publisher;
 
         $this->alias = $slug;
