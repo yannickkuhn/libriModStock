@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 use HikashopBundle\Entity\HikashopProduct;
 use HikashopBundle\Entity\HikashopFile;
+use HikashopBundle\Entity\HikashopPrice;
+use HikashopBundle\Entity\HikashopCategory;
+use HikashopBundle\Entity\HikashopProductCategory;
 use AppBundle\Entity\Product;
 
 
@@ -87,8 +90,7 @@ class SyncProductsHikashop extends Command
 
             $this->createOrUpdateProduct($ddcomProduct, $hkproduct);
 
-            if ($indice > 0 && ($indice%$created_per == 0)) 
-            {
+            if ($indice > 0 && ($indice%$created_per == 0)) {
                 $logger->info('[ETAPE] - Nombre de produits traités : '.$indice.'');
             }
             $indice++;
@@ -110,8 +112,7 @@ class SyncProductsHikashop extends Command
 
         $stock = $em->getRepository('AppBundle:Stock')->findOneBy(["ean" => $ddcomProduct->getEan()]);
         $stock_qte = 0;
-        if (null !== $stock && 0 < $stock->getQuantity())
-        {
+        if (null !== $stock && 0 < $stock->getQuantity()) {
             $stock_qte = $stock->getQuantity();  
         }
 
@@ -147,6 +148,70 @@ class SyncProductsHikashop extends Command
 
         $hkem->persist($hikashopProduct);
         $hkem->flush();
+
+        // set price for hikashop product
+        // ==============================
+
+        $hkprice = $hkem->getRepository('HikashopBundle:HikashopPrice')->findOneBy([
+            'productId' => $hikashopProduct->getId()
+        ]);
+        if ($hkprice === null) {
+            $hikashopPrice = new HikashopPrice();
+        } 
+        else {
+            $hikashopPrice = $hkprice;
+        }
+
+        $hikashopPrice->setFromLibrisoft(
+            $hikashopProduct->getId(),
+            $ddcomProduct->getGrossTotal()
+        );
+        $hkem->persist($hikashopPrice);
+        $hkem->flush();
+
+        // set category of hikashop product
+        // ================================
+
+        if(null !== $ddcomProduct->getCategory1() && '0' !== $ddcomProduct->getCategory1()) {
+            $category1 = $em->getRepository('AppBundle:Category')->findOneById($ddcomProduct->getCategory1());
+            $slugCategory = $this->sluggify($category1->getTitle());
+
+            $hkcategory = $hkem->getRepository('HikashopBundle:HikashopCategory')->findOneBy([
+                'alias' => $slugCategory
+            ]);
+
+            if ($hkcategory === null) {
+                $hikashopCategory = new HikashopCategory();
+                $hikashopCategory->setFromLibrisoft(
+                    $category1->getTitle(),
+                    $slugCategory
+                );
+                $hkem->persist($hikashopCategory);
+                $hkem->flush();
+
+                $hkcategory = $hikashopCategory;
+            }
+
+            // link between product and category
+            // =================================
+
+            $hkproductcategory = $hkem->getRepository('HikashopBundle:HikashopProductCategory')->findOneBy([
+                'productId' => $hikashopProduct->getId()
+            ]);
+            if ($hkproductcategory === null) {
+                $hikashopProductCategory = new HikashopProductCategory();
+            } else {
+                $hikashopProductCategory = $hkproductcategory;
+            }
+            
+            $hikashopProductCategory->setFromLibrisoft(
+                $hkcategory->getId(), 
+                $hikashopProduct->getId()
+            );
+            $hkem->persist($hikashopProductCategory);
+            $hkem->flush();
+
+        }
 
         // create image from 2dcom url
         // ===========================

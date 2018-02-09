@@ -211,11 +211,12 @@ class HikashopCategory
      * setFromLibrisoft.
      *
      */
-    function setFromLibrisoft($name, $type = 'product', $parentId = 2) 
+    function setFromLibrisoft($name, $slug = '', $type = 'product', $parentId = 2) 
     {
         $this->parentId = $parentId;
         $this->type = $type;
         $this->name = $name;
+        $this->alias = $slug;
     }
 
     /**
