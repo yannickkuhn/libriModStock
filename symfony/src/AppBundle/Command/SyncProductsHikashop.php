@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use HikashopBundle\Entity\HikashopProduct;
+use HikashopBundle\Entity\HikashopFile;
 use AppBundle\Entity\Product;
 
 
@@ -73,6 +74,9 @@ class SyncProductsHikashop extends Command
             'isDeleted' => '0'
         ]);
 
+        $indice = 0;
+        $created_per = 50;
+
         foreach($ddcomProducts as $ddcomProduct) {
 
         	// test if product ever existed in hikashop database
@@ -83,10 +87,15 @@ class SyncProductsHikashop extends Command
 
             $this->createOrUpdateProduct($ddcomProduct, $hkproduct);
 
+            if ($indice > 0 && ($indice%$created_per == 0)) 
+            {
+                $logger->info('[ETAPE] - Nombre de produits traités : '.$indice.'');
+            }
+            $indice++;
    		}
 
-        $logger->info('Nombre de produits à ajouter : '.$createdProductsCount.'');
-        $logger->info('Nombre de produits mis à jour : '.$updatedProductsCount.'');
+        $logger->info('Nombre de produits à ajouter : '.$this->createdProductsCount.'');
+        $logger->info('Nombre de produits mis à jour : '.$this->updatedProductsCount.'');
         $logger->info('Synchronisation terminée pour les mises à jour de produits !');
     }
 
@@ -96,12 +105,8 @@ class SyncProductsHikashop extends Command
         $hkem = $this->hkem;
         $logger = $this->logger;
 
-		// create image from 2dcom url
-
-        $ean = $ddcomProduct->getEan();
-        //$this->getCover($ean);
-
         // get stock
+        // =========
 
         $stock = $em->getRepository('AppBundle:Stock')->findOneBy(["ean" => $ddcomProduct->getEan()]);
         $stock_qte = 0;
@@ -111,17 +116,18 @@ class SyncProductsHikashop extends Command
         }
 
         // get summary
-        $summary = "";
-        //$summary = $this->getSummary($ean);
+        // ===========
+
+        $summary = $this->getSummary($ddcomProduct->getEan());
 
         // create hikashop product
+        // =======================
 
         if ($hkproduct === null) {
             $hikashopProduct = new HikashopProduct();
         } else {
             $hikashopProduct = $hkproduct;
         }
-        
 
         $hikashopProduct->setFromLibrisoft(
             $ddcomProduct->getTitle(), 
@@ -142,6 +148,12 @@ class SyncProductsHikashop extends Command
         $hkem->persist($hikashopProduct);
         $hkem->flush();
 
+        // create image from 2dcom url
+        // ===========================
+
+        $ean = $ddcomProduct->getEan();
+        $this->getCover($hikashopProduct->getId(), $ean);
+
         if ($hkproduct === null) {
             $this->createdProductsCount ++;
         }
@@ -150,12 +162,27 @@ class SyncProductsHikashop extends Command
         }
 	}
 
-    private function getCover($ean, $path = "../hikashop_images/") 
+    private function getCover($hikashopProductId, $ean, $path = "../hikashop_images/") 
     {
-    	$image = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$ean.'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
-    	$content = file_get_contents($image);
+        $hkem = $this->hkem;
 
-    	file_put_contents($path.$ean.'.jpg', $content);
+        if (!file_exists($path.$ean.'.jpg')) 
+        {
+        	$image = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$ean.'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
+        	$content = file_get_contents($image);
+
+        	file_put_contents($path.$ean.'.jpg', $content);
+
+            $hikashopFile = new HikashopFile();
+            $hikashopFile->setFromLibrisoft(
+                $ean,
+                $ean.'.jpg',
+                $hikashopProductId
+            );
+
+            $hkem->persist($hikashopFile);
+            $hkem->flush();
+        }
     }
 
     private function getSummary($ean) 
