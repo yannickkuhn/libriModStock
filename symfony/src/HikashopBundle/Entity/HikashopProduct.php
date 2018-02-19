@@ -381,7 +381,7 @@ class HikashopProduct
         // ------------------------------------------------
 
         $this->parentId = 0;
-        $this->published = 0;
+        $this->published = 1;
         $this->hit = 0;                         // nombre de consultations ?
         $this->saleStartAt = 0;
         $this->saleEndAt = 0;

@@ -187,7 +187,7 @@ class HikashopCategory
         $this->ordering = 1;    // dynamique ?
         $this->left = 0;
         $this->right = 0;
-        $this->depth = 1;
+        $this->depth = 2;
         
         $this->accessingBy = 'all';
         $this->menu = 0;
