@@ -20,9 +20,9 @@ use AppBundle\Entity\Product;
 
 class SyncProductsHikashop extends Command
 {
-	private $logger;
-	private $em;
-	private $hkem;
+    private $logger;
+    private $em;
+    private $hkem;
     private $mailer;
 
     private $mailer_to;
@@ -34,8 +34,8 @@ class SyncProductsHikashop extends Command
 
     public function __construct(EntityManagerInterface $em, EntityManagerInterface $hkem, LoggerInterface $logger, \Swift_Mailer $mailer)
     {
-    	$this->em = $em;
-    	$this->hkem = $hkem;
+        $this->em = $em;
+        $this->hkem = $hkem;
         $this->logger = $logger;
         $this->mailer = $mailer;
 
@@ -53,17 +53,17 @@ class SyncProductsHikashop extends Command
     protected function configure()
     {
         $this
-        	->setName('app:sync-products-hikashop')
-        	->setDescription('Synchronisation des produits Hikashop.')
-        	->setHelp('Cette commande vous permet de mettre à jour la base de produits Hikashop ...')
+            ->setName('app:sync-products-hikashop')
+            ->setDescription('Synchronisation des produits Hikashop.')
+            ->setHelp('Cette commande vous permet de mettre à jour la base de produits Hikashop ...')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-    	$em = $this->em;
-    	$hkem = $this->hkem;
-    	$logger = $this->logger;
+        $em = $this->em;
+        $hkem = $this->hkem;
+        $logger = $this->logger;
 
         set_time_limit(0); 
 
@@ -82,11 +82,11 @@ class SyncProductsHikashop extends Command
 
         foreach($ddcomProducts as $ddcomProduct) {
 
-        	// test if product ever existed in hikashop database
+            // test if product ever existed in hikashop database
 
-        	$hkproduct = $hkem->getRepository('HikashopBundle:HikashopProduct')->findOneBy([
-	            'isbn' => $ddcomProduct->getEan()
-	        ]);
+            $hkproduct = $hkem->getRepository('HikashopBundle:HikashopProduct')->findOneBy([
+                'isbn' => $ddcomProduct->getEan()
+            ]);
 
             $this->createOrUpdateProduct($ddcomProduct, $hkproduct);
 
@@ -94,7 +94,7 @@ class SyncProductsHikashop extends Command
                 $logger->info('[ETAPE] - Nombre de produits traités : '.$indice.'');
             }
             $indice++;
-   		}
+        }
 
         $logger->info('Nombre de produits à ajouter : '.$this->createdProductsCount.'');
         $logger->info('Nombre de produits mis à jour : '.$this->updatedProductsCount.'');
@@ -102,10 +102,12 @@ class SyncProductsHikashop extends Command
     }
 
     private function createOrUpdateProduct(Product $ddcomProduct, HikashopProduct $hkproduct = null) 
-	{
+    {
         $em = $this->em;
         $hkem = $this->hkem;
         $logger = $this->logger;
+
+        sleep(1);
 
         // get stock
         // =========
@@ -203,7 +205,7 @@ class SyncProductsHikashop extends Command
             } else {
                 $hikashopProductCategory = $hkproductcategory;
             }
-            
+
             $hikashopProductCategory->setFromLibrisoft(
                 $hkcategory->getId(), 
                 $hikashopProduct->getId()
@@ -225,18 +227,18 @@ class SyncProductsHikashop extends Command
         else {
             $this->updatedProductsCount ++;
         }
-	}
+    }
 
-    private function getCover($hikashopProductId, $ean, $path = "../hikashop_images/") 
+    private function getCover($hikashopProductId, $ean, $path = "../../images/com_hikashop/upload/") 
     {
         $hkem = $this->hkem;
 
         if (!file_exists($path.$ean.'.jpg')) 
         {
-        	$image = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$ean.'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
-        	$content = file_get_contents($image);
+            $image = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$ean.'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
+            $content = file_get_contents($image);
 
-        	file_put_contents($path.$ean.'.jpg', $content);
+            file_put_contents($path.$ean.'.jpg', $content);
 
             $hikashopFile = new HikashopFile();
             $hikashopFile->setFromLibrisoft(
@@ -252,23 +254,23 @@ class SyncProductsHikashop extends Command
 
     private function getSummary($ean) 
     {
-    	$url = 'http://bddi.2dcom.fr/GetResumeUtf8.php?user=wsbddi&pw=ErG2i8Aj&ean='.$ean;
-    	$description = (file_get_contents($url) != 'erreur resume non trouve') ? file_get_contents($url) : '';
+        $url = 'http://bddi.2dcom.fr/GetResumeUtf8.php?user=wsbddi&pw=ErG2i8Aj&ean='.$ean;
+        $description = (file_get_contents($url) != 'erreur resume non trouve') ? file_get_contents($url) : '';
 
-    	return $description;
+        return $description;
     }
 
     private function sluggify($string, $separator = '-')
-	{
-	    $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
-	    $special_cases = array( '&' => 'and', "'" => '');
-	    $string = mb_strtolower( trim( $string ), 'UTF-8' );
-	    $string = str_replace( array_keys($special_cases), array_values( $special_cases), $string );
-	    $string = preg_replace( $accents_regex, '$1', htmlentities( $string, ENT_QUOTES, 'UTF-8' ) );
-	    $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
-	    $string = preg_replace("/[$separator]+/u", "$separator", $string);
-	    return $string;
-	}
+    {
+        $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
+        $special_cases = array( '&' => 'and', "'" => '');
+        $string = mb_strtolower( trim( $string ), 'UTF-8' );
+        $string = str_replace( array_keys($special_cases), array_values( $special_cases), $string );
+        $string = preg_replace( $accents_regex, '$1', htmlentities( $string, ENT_QUOTES, 'UTF-8' ) );
+        $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
+        $string = preg_replace("/[$separator]+/u", "$separator", $string);
+        return $string;
+    }
 
 
 }
