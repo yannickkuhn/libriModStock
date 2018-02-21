@@ -80,10 +80,7 @@ class SyncProductsCommand extends Command
 
         $updatedProductsNb = 0;
         $createdProductsNb = 0;
-        
-        $page = 1;
-        $maxpage = 302;
-        $per_page = 10;
+
         $products = [];
 
         $logger->info('----------------------------------------------------------------------');
@@ -103,48 +100,7 @@ class SyncProductsCommand extends Command
                 ]
             );
 
-            //var_dump($ws->get(''));
-
             $logger->info('OK pour le WS');
-
-            for($currentPage = $page; $currentPage < $maxpage; $currentPage ++) {
-
-                $currentUpdatedProductsNb = 0;
-                $count_wsprod = 0;
-                $cur_products = [];
-
-                //$logger->info('Traitement de la page : '.$currentPage);
-                $wsproducts = $ws->get('products', [ 'page' => (int)$currentPage, 'per_page' => $per_page ]);
-                if(count($wsproducts) == 0)
-                    break;
-
-                foreach ($wsproducts as $wsproduct) {
-                    $cur_products[$wsproduct['id']] = $wsproduct['sku'];
-                    $products[$wsproduct['id']] = $wsproduct['sku'];
-                    $count_wsprod ++;
-                }
-            
-                //$logger->info('nb produits : '.$count_wsprod);
-                //$logger->info('Consolidation des données de mise à jour en cours ...');
-
-                $data_batch['update'] = array();
-
-                foreach($cur_products as $idproduct => $ean) {
-                    $data_product = $this->getLocalProduct($idproduct, $ean);
-                    if(null !== $data_product && is_array($data_product)) {
-                        $currentUpdatedProductsNb++;
-                        $data_batch['update'][] = $data_product;
-                    }
-                }
-
-                //$logger->info('Nombre de produits à mettre à jour : '.$currentUpdatedProductsNb);
-                $ws->post('products/batch', $data_batch);
-
-                $updatedProductsNb += $currentUpdatedProductsNb;
-                $logger->info('Nombre de produits total mis à jour : '.$updatedProductsNb);
-            }
-
-            $logger->info('Process de mise à jour des produits terminé');
 
             // TODO : Les produits d'occasions ne sont pas inclus pour l'instant
             $localProducts = $em->getRepository('AppBundle:Product')->findBy([
@@ -161,23 +117,22 @@ class SyncProductsCommand extends Command
             foreach($localProducts as $localProduct) {
 
                 if($indice > 0 && ($indice%$created_per == 0)) {
-                    //$logger->info('Nombre de produits à ajouter : '.$currentUpdatedProductsNb);
-                    $ws->post('products/batch', $data_batch);
-                    $data_batch['create'] = [];
                     $createdProductsNb += $currentCreatedProductsNb;
                     $logger->info('Nombre de produits total ajoutés : '.$createdProductsNb);
                     $currentCreatedProductsNb = 0;
                 }
 
                 if(!in_array($localProduct->getEan(), $products)) {
+
                     // Si on peut continuer, on est dans le cas d'un ajout de produit
+
                     $ean = $localProduct->getEan();
-                    //$logger->info('produit '.$ean.' à ajouter !');
                     $idproduct = 0;
 
                     $data_product = $this->getLocalProduct($idproduct, $ean, 'create');
                     if(null !== $data_product && is_array($data_product)) {
-                        $data_batch['create'][] = $data_product;
+
+                        $ws->post('products', $data_batch);
                         $currentCreatedProductsNb ++;
                         $indice++;
                     }
