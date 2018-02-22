@@ -80,9 +80,10 @@ class SyncProductsCommand extends Command
 
         $updatedProductsNb = 0;
         $createdProductsNb = 0;
+        $deletedProductsNb = 0;
         
         $page = 1;
-        $maxpage = 302;
+        $maxpage = 2000000;
         $per_page = 10;
         $products = [];
 
@@ -99,7 +100,11 @@ class SyncProductsCommand extends Command
                 [
                     'wp_api' => true,
                     'version' => 'wc/v2',
-                    'query_string_auth' => true
+                    'query_string_auth' => true,
+                    'debug' => false,
+                    'ssl_verify' => false,
+                    'return_as_array' => false,
+                    'timeout' => 3600
                 ]
             );
 
@@ -131,7 +136,11 @@ class SyncProductsCommand extends Command
 
                 foreach($cur_products as $idproduct => $ean) {
                     $data_product = $this->getLocalProduct($idproduct, $ean);
-                    if(null !== $data_product && is_array($data_product)) {
+                    if($data_product == "todelete") {
+                        $ws->delete('products/'.$idproduct, ['force' => true]);
+                        $deletedProductsNb++;
+                    }   
+                    else if(null !== $data_product && is_array($data_product)) {
                         $currentUpdatedProductsNb++;
                         $data_batch['update'][] = $data_product;
                     }
@@ -246,6 +255,15 @@ class SyncProductsCommand extends Command
 
             if(null !== $stock && 0 < $stock->getQuantity())
                 $stock_qte = $stock->getQuantity(); 
+            else {
+                // Product not in stock
+                if($action == "update") {
+                    return "todelete";
+                } else {
+                    return false;
+                }
+                
+            }
             
             if(null !== $localProduct->getCategory1() && '0' !== $localProduct->getCategory1()) {
                 $category1 = $em->getRepository('AppBundle:Category')->findOneById($localProduct->getCategory1());
@@ -298,9 +316,15 @@ class SyncProductsCommand extends Command
                     ]
                 ]    
             );
-            $data_product['images'] = array (
-                    '0' => array( 'src' => 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED', 'id' => '0', 'position' => '0' ),
-                    );
+
+            file_put_contents("/home/librair2/public_html/2dcom/images/".$localProduct->getEan().".jpg", file_get_contents('http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'isize=medium&amp;gencod=3025594728601&amp;key=mZfH7ltnWECPwoED'));
+
+            $data_product['images'] = [
+                [
+                    'src' => "http://librairiezenobi.com/2dcom/images/".$localProduct->getEan().".jpg", 
+                    'position' => 0 
+                ]
+            ];
 
             if($action == 'update') {
                 $data_product['id'] = $idproduct;
