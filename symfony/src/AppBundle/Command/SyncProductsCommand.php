@@ -129,7 +129,7 @@ class SyncProductsCommand extends Command
 
                     // s'il y a une image dans le produit, on cherche l'id
                     if(is_array($wsproduct["images"]) && !empty($wsproduct["images"][0])) {
-                        $cur_images[$wsproduct['id']] = $wsproduct["images"][0]["id"];
+                        $cur_images[$wsproduct['id']] = $wsproduct["images"][0];
                     } else {
                         $cur_images[$wsproduct['id']] = false;
                     }
@@ -220,7 +220,7 @@ class SyncProductsCommand extends Command
         }
     }
 
-    private function getLocalProduct($idproduct, $ean, $idImage = false, $action = 'update')
+    private function getLocalProduct($idproduct, $ean, $distImage = false, $action = 'update')
     {
         $em = $this->em;
         $logger = $this->logger;
@@ -237,7 +237,7 @@ class SyncProductsCommand extends Command
         if(null !== $localProduct) {
 
             if($localProduct->getIsDeleted() == 1) {
-                $logger->info('Produit à supprimer (prod_deleted = 1'.$ean);
+                $logger->info('Produit à supprimer (prod_deleted = 1 - '.$ean);
                 return "todelete";
             }
 
@@ -327,10 +327,10 @@ class SyncProductsCommand extends Command
                 ]    
             );
 
-            if($idImage == false) {
+            if($distImage == false) {
 
                 // Pour l'instant, on mets à jour l'image uniquement s'il n'y en a pas sur le serveur
-                $url = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'&amp;isize=medium&amp;gencod=3025594728601&amp;key=mZfH7ltnWECPwoED';
+                $url = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
 
                 //file_put_contents("/home/librair2/public_html/2dcom/images/".$localProduct->getEan().".jpg", file_get_contents($url));
 
@@ -340,6 +340,21 @@ class SyncProductsCommand extends Command
                         'position' => 0 
                     ]
                 ];
+            } else {
+                $distImageId = $distImage['id'];
+                $distImageSrc = $distImage['src'];
+                $product_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
+                $url = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
+                if(md5(file_get_contents($distImageSrc)) == $product_sans_visuel) {
+                    $logger->info('Image de produit à mettre à jour : '.$ean);
+                    $data_product['images'] = [
+                    [
+                        'id' => $distImageId,
+                        'src' => $url, 
+                        'position' => 0 
+                    ]
+                ];
+                }
             }
 
             if($action == 'update') {
