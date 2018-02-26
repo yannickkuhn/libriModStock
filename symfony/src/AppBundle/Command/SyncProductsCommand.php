@@ -104,7 +104,7 @@ class SyncProductsCommand extends Command
                     'debug' => false,
                     'ssl_verify' => false,
                     'return_as_array' => false,
-                    'timeout' => 3600
+                    'timeout' => 7200
                 ]
             );
 
@@ -117,6 +117,7 @@ class SyncProductsCommand extends Command
                 $currentUpdatedProductsNb = 0;
                 $count_wsprod = 0;
                 $cur_products = [];
+                $cur_images = [];
 
                 //$logger->info('Traitement de la page : '.$currentPage);
                 $wsproducts = $ws->get('products', [ 'page' => (int)$currentPage, 'per_page' => $per_page ]);
@@ -125,6 +126,14 @@ class SyncProductsCommand extends Command
 
                 foreach ($wsproducts as $wsproduct) {
                     $cur_products[$wsproduct['id']] = $wsproduct['sku'];
+
+                    // s'il y a une image dans le produit, on cherche l'id
+                    if(is_array($wsproduct["images"]) && !empty($wsproduct["images"][0])) {
+                        $cur_images[$wsproduct['id']] = $wsproduct["images"][0]["id"];
+                    } else {
+                        $cur_images[$wsproduct['id']] = false;
+                    }
+
                     $products[$wsproduct['id']] = $wsproduct['sku'];
                     $count_wsprod ++;
                 }
@@ -135,7 +144,8 @@ class SyncProductsCommand extends Command
                 $data_batch['update'] = array();
 
                 foreach($cur_products as $idproduct => $ean) {
-                    $data_product = $this->getLocalProduct($idproduct, $ean);
+
+                    $data_product = $this->getLocalProduct($idproduct, $ean, $cur_images[$idproduct]);
                     if($data_product == "todelete") {
                         $ws->delete('products/'.$idproduct, ['force' => true]);
                         $deletedProductsNb++;
@@ -184,7 +194,7 @@ class SyncProductsCommand extends Command
                     //$logger->info('produit '.$ean.' à ajouter !');
                     $idproduct = 0;
 
-                    $data_product = $this->getLocalProduct($idproduct, $ean, 'create');
+                    $data_product = $this->getLocalProduct($idproduct, $ean, false, 'create');
                     if(null !== $data_product && is_array($data_product)) {
                         $data_batch['create'][] = $data_product;
                         $currentCreatedProductsNb ++;
@@ -210,7 +220,7 @@ class SyncProductsCommand extends Command
         }
     }
 
-    private function getLocalProduct($idproduct, $ean, $action = 'update')
+    private function getLocalProduct($idproduct, $ean, $idImage = false, $action = 'update')
     {
         $em = $this->em;
         $logger = $this->logger;
@@ -227,8 +237,23 @@ class SyncProductsCommand extends Command
         if(null !== $localProduct) {
 
             if($localProduct->getIsDeleted() == 1) {
-                $logger->error('Produit à supprimer (prod_deleted = 1'.$ean);
-                return false;
+                $logger->info('Produit à supprimer (prod_deleted = 1'.$ean);
+                return "todelete";
+            }
+
+            $stock = $em->getRepository('AppBundle:Stock')->findOneBy(["ean" => $localProduct->getEan()]);
+            $stock_qte = 0;
+
+            if(null !== $stock && 0 < $stock->getQuantity())
+                $stock_qte = $stock->getQuantity(); 
+            else {
+                // Product not in stock
+                if($action == "update") {
+                    return "todelete";
+                } else {
+                    return false;
+                }
+                
             }
 
             //$logger->info('Produit trouvé');
@@ -249,21 +274,6 @@ class SyncProductsCommand extends Command
             $vat = "réduit";
             if($localProduct->getVat1() == '20.00')
                 $vat = "Standard";
-            
-            $stock = $em->getRepository('AppBundle:Stock')->findOneBy(["ean" => $localProduct->getEan()]);
-            $stock_qte = 0;
-
-            if(null !== $stock && 0 < $stock->getQuantity())
-                $stock_qte = $stock->getQuantity(); 
-            else {
-                // Product not in stock
-                if($action == "update") {
-                    return "todelete";
-                } else {
-                    return false;
-                }
-                
-            }
             
             if(null !== $localProduct->getCategory1() && '0' !== $localProduct->getCategory1()) {
                 $category1 = $em->getRepository('AppBundle:Category')->findOneById($localProduct->getCategory1());
@@ -317,14 +327,20 @@ class SyncProductsCommand extends Command
                 ]    
             );
 
-            file_put_contents("/home/librair2/public_html/2dcom/images/".$localProduct->getEan().".jpg", file_get_contents('http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'isize=medium&amp;gencod=3025594728601&amp;key=mZfH7ltnWECPwoED'));
+            if($idImage == false) {
 
-            $data_product['images'] = [
-                [
-                    'src' => "http://librairiezenobi.com/2dcom/images/".$localProduct->getEan().".jpg", 
-                    'position' => 0 
-                ]
-            ];
+                // Pour l'instant, on mets à jour l'image uniquement s'il n'y en a pas sur le serveur
+                $url = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'&amp;isize=medium&amp;gencod=3025594728601&amp;key=mZfH7ltnWECPwoED';
+
+                //file_put_contents("/home/librair2/public_html/2dcom/images/".$localProduct->getEan().".jpg", file_get_contents($url));
+
+                $data_product['images'] = [
+                    [
+                        'src' => $url, 
+                        'position' => 0 
+                    ]
+                ];
+            }
 
             if($action == 'update') {
                 $data_product['id'] = $idproduct;
