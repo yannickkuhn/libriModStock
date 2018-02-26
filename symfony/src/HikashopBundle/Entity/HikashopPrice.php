@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * HikashopPrice
  *
- * @ORM\Table(name="aoikt_hikashop_price")
+ * @ORM\Table(name="c0syc_hikashop_price")
  * @ORM\Entity(repositoryClass="HikashopBundle\Repository\HikashopPriceRepository")
  */
 class HikashopPrice
