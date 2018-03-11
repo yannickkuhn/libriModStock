@@ -1249,4 +1249,3 @@ class OrderHeader
         return $this->shippingPhone;
     }
 }
-

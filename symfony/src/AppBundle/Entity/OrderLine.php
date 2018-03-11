@@ -585,4 +585,3 @@ class OrderLine
         return $this->isChecked;
     }
 }
-
