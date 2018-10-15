@@ -52,7 +52,7 @@ class GetOrdersCommand extends Command
             "Chronopost"            => 2,
             "Mondial Relay"         => 3,
             "Relais Colis"          => 4,
-            "Livraison gratuite"    => 5
+            "Retrait en librairie"  => 5
         ];
 
         parent::__construct();

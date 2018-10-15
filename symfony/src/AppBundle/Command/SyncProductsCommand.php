@@ -349,7 +349,6 @@ class SyncProductsCommand extends Command
                     $logger->info('Image de produit à mettre à jour : '.$ean);
                     $data_product['images'] = [
                     [
-                        'id' => $distImageId,
                         'src' => $url, 
                         'position' => 0 
                     ]
