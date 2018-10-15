@@ -40,7 +40,7 @@ class SyncProductsCommand extends Command
 
         $this->consumer_key = 'ck_5c287f62388e2d18f6834fb8405f91289ffa3caa'; 
         $this->consumer_secret = 'cs_4cdb9f1cdecc1336fb35571bf2d4104ffd454012'; 
-        $this->store_url = 'https://www.librairiezenobi.com/'; 
+        $this->store_url = 'http://zenobi.local/'; 
         $this->options = [];
 
         $this->mailer_to = "yk@2dcom.fr";
@@ -119,8 +119,11 @@ class SyncProductsCommand extends Command
                 $cur_products = [];
                 $cur_images = [];
 
+                $logger->info("Page : $currentPage, per_page : $per_page");
+
                 //$logger->info('Traitement de la page : '.$currentPage);
                 $wsproducts = $ws->get('products', [ 'page' => (int)$currentPage, 'per_page' => $per_page ]);
+
                 if(count($wsproducts) == 0)
                     break;
 
@@ -167,7 +170,8 @@ class SyncProductsCommand extends Command
 
             // TODO : Les produits d'occasions ne sont pas inclus pour l'instant
             $localProducts = $em->getRepository('AppBundle:Product')->findBy([
-                'isDeleted' => '0'
+                'isDeleted' => '0',
+                'ean' => '9782253082576'
             ]);
 
             $indice = 0;
@@ -266,7 +270,7 @@ class SyncProductsCommand extends Command
             }
 
             $description = '';
-            $description = (file_get_contents('http://bddi.2dcom.fr/GetResumeUtf8.php?user=wsbddi&pw=ErG2i8Aj&ean=' . $localProduct->getEan()) != 'erreur resume non trouve') ? file_get_contents('http://bddi.2dcom.fr/GetResumeUtf8.php?user=wsbddi&pw=ErG2i8Aj&ean=' . $localProduct->getEan()) : '';
+            $description = (file_get_contents('http://zenobi.local/2dcom/outils/fakeresume.php?user=wsbddi&pw=ErG2i8Aj&ean=' . $localProduct->getEan()) != 'erreur resume non trouve') ? file_get_contents('http://zenobi.local/2dcom/outils/fakeresume.php?user=wsbddi&pw=ErG2i8Aj&ean=' . $localProduct->getEan()) : '';
 
             $price = $localProduct->getNetTotal();
                 
@@ -330,7 +334,7 @@ class SyncProductsCommand extends Command
             if($distImage == false) {
 
                 // Pour l'instant, on mets à jour l'image uniquement s'il n'y en a pas sur le serveur
-                $url = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
+                $url = 'http://zenobi.local/2dcom/outils/fakeimage.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
 
                 //file_put_contents("/home/librair2/public_html/2dcom/images/".$localProduct->getEan().".jpg", file_get_contents($url));
 
@@ -344,7 +348,7 @@ class SyncProductsCommand extends Command
                 $distImageId = $distImage['id'];
                 $distImageSrc = $distImage['src'];
                 $product_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
-                $url = 'http://bddi.2dcom.fr/LocalImageExists.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
+                $url = 'http://zenobi.local/2dcom/outils/LocalImageExists.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
                 if(md5(file_get_contents($distImageSrc)) == $product_sans_visuel) {
                     $logger->info('Image de produit à mettre à jour : '.$ean);
                     $data_product['images'] = [

@@ -40,7 +40,7 @@ class GetOrdersCommand extends Command
 
         $this->consumer_key = 'ck_5c287f62388e2d18f6834fb8405f91289ffa3caa'; 
         $this->consumer_secret = 'cs_4cdb9f1cdecc1336fb35571bf2d4104ffd454012'; 
-        $this->store_url = 'https://www.librairiezenobi.com/'; 
+        $this->store_url = 'http://zenobi.local/'; 
         $this->options = [];
 
         $this->mailer_to = "yk@2dcom.fr";
