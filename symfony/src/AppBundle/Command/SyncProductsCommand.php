@@ -447,15 +447,13 @@ class SyncProductsCommand extends Command
             return false;
         }
 
-        var_dump($assocEan);
-
         $localProduct = $em->getRepository('AppBundle:AssocProduct')->findOneBy([
             'assocEan' => $assocEan
         ]);
 
         if(null !== $localProduct) {
 
-            $stock = $em->getRepository('AppBundle:Stock')->findOneBy(["ean" => $localProduct->getAssocEan()]);
+            $stock = $em->getRepository('AppBundle:Stock')->findOneBy(["ean" => $assocEan]);
             $stock_qte = 0;
 
             if(null !== $stock && 0 < $stock->getQuantity())
@@ -465,21 +463,75 @@ class SyncProductsCommand extends Command
                 if($action == "update") {
                     return "todelete";
                 } else {
-                    //var_dump("Produit d'occasion ".$localProduct->getAssocEan()." pas en stock");
+                    var_dump("Produit d'occasion ".$localProduct->getAssocEan()." pas en stock");
                     return false;
                 } 
-
-                // Utiliser la catégorie d'occasion
-                $category = $this->categorie_occasion;
-
-                // TODO : RECUPERER LA TVA DU PRODUIT NEUF S'IL EXISTE ICI !
-
-
             }
+
+            var_dump('ok');
+
+            // Utiliser la catégorie d'occasion
+            $category = $this->categorie_occasion;
+
+            // TODO : RECUPERER LA TVA DU PRODUIT NEUF S'IL EXISTE ICI !
+            $vat = "réduit";
+
+            // TODO : RECUPERER LA DESCRIPTION DU PRODUIT NEUF S'IL EXISTE ICI !
+            $description = null;
+
+            // TODO : RECUPERER LES DIMENSIONS DU PRODUIT NEUF S'IL EXISTE ICI !
+
+            $price = $localProduct->getAssocNetTotal();
+
+            $data_product = array (
+                'name'              => $localProduct->getAssocTitle(),
+                'sku'               => $localProduct->getAssocEan(),
+                'price'             => $price,
+                'regular_price'     => $price,
+                'tax_class'         => $vat,
+                'stock_quantity'    => $stock_qte,
+                'weight'            => $localProduct->getAssocWeight(),
+                'dimensions'        => array (
+                                                'length' => 0,
+                                                'width' => 0,
+                                                'height' => 0,
+                                        ),
+                'description'       => $description,
+                'categories'        => [ [ 'id' => $category ] ],
+                'downloadable'      => false,
+                'virtual'           => false,
+                'managing_stock'    => true,
+                'in_stock'          => true,
+                'purchaseable'      => true,
+                'attributes'        => [
+                    [
+                        'name'      => 'Auteur',
+                        'slug'      => 'auteur',
+                        'position'  => '0',
+                        'visible'   => true,
+                        'variation' => false,
+                        'options'   => [
+                                0   => $localProduct->getAssocAuthor()
+                        ]
+                    ],
+                    [
+                        'name'      => 'Editeur',
+                        'slug'      => 'editeur',
+                        'position'  => '1',
+                        'visible'   => true,
+                        'variation' => false,
+                        'options'   => [
+                                0   => $localProduct->getAssocPublisher()
+                        ]
+                    ]
+                ]    
+            );
+
+            print_r($data_product);
+            die();
         }
 
-        var_dump($localProduct);
-        die();
+        //die();
     }
 
     private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
