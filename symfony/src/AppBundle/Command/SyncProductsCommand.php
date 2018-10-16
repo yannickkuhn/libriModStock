@@ -64,7 +64,7 @@ class SyncProductsCommand extends Command
             "500" => "178", "510" => "179"];
         $this->logStep = 50;
 
-        $this->md5_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
+        $this->md5_sans_visuel = "6304f32c669087188273de7c34ec40b8";
         $this->id_sans_visuel = 166734;
         $this->url_sans_visuel = "http://zenobi.local/wp-content/uploads/2018/10/sans-visuel-2.png";
         $this->url_image = "http://bddi.2dcom.fr/LocalImageExists.php?isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED&ean=%EAN%";
