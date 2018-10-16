@@ -341,32 +341,45 @@ class SyncProductsCommand extends Command
                 ]    
             );
 
+            $product_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
+            $url = 'http://zenobi.local/2dcom/outils/fakeimage.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
+
+            if(md5(file_get_contents($url)) === $product_sans_visuel) {
+                $nameImage = 'sans-visuel';
+            } else {
+                $nameImage = $localProduct->getEan();
+            }
+
             if($distImage == false) {
 
                 // Pour l'instant, on mets à jour l'image uniquement s'il n'y en a pas sur le serveur
-                $url = 'http://zenobi.local/2dcom/outils/fakeimage.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
-
-                //file_put_contents("/home/librair2/public_html/2dcom/images/".$localProduct->getEan().".jpg", file_get_contents($url));
 
                 $data_product['images'] = [
                     [
                         'src' => $url, 
-                        'position' => 0 
+                        'position' => 0,
+                        'name' => $nameImage
                     ]
                 ];
+
             } else {
                 $distImageId = $distImage['id'];
                 $distImageSrc = $distImage['src'];
-                $product_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
-                $url = 'http://zenobi.local/2dcom/outils/LocalImageExists.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
-                if(md5(file_get_contents($distImageSrc)) == $product_sans_visuel) {
+                $logger->info(md5(file_get_contents($distImageSrc))." - ".md5(file_get_contents($url)));
+                if( 
+                    ( (md5(file_get_contents($distImageSrc)) === $product_sans_visuel) && (md5(file_get_contents($url)) !== $product_sans_visuel) )
+                    ||
+                    (md5(file_get_contents($distImageSrc)) !== md5(file_get_contents($url))) 
+                ) {
+                    // On ne mets à jour l'image que si c'est nécessaire
                     $logger->info('Image de produit à mettre à jour : '.$ean);
                     $data_product['images'] = [
-                    [
-                        'src' => $url, 
-                        'position' => 0 
-                    ]
-                ];
+                        [
+                            'src' => $url, 
+                            'position' => 0,
+                            'name' => $nameImage
+                        ]
+                    ];
                 }
             }
 
