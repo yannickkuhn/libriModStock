@@ -52,13 +52,13 @@
 
 	// PARTIE 1
 
-	$response = $db->query("SELECT * FROM `wpmk_posts` WHERE `post_name` LIKE 'image-%' AND `post_mime_type`='image/jpeg'");
+	$response = $db->query("SELECT * FROM `wpmk_posts` WHERE (`post_name` LIKE 'image-%' OR `post_name` REGEXP '[0-9]{13}') AND `post_mime_type`='image/jpeg'");
 	while ($data = $response->fetch()) {
 		$res = $db->prepare("DELETE FROM wpmk_postmeta WHERE post_id = '".$data['ID']."'");
 		$res->execute();
 		$metaDeleted += $res->rowCount();
 	}
-	$res = $db->prepare("DELETE FROM `wpmk_posts` WHERE `post_name` LIKE 'image-%' AND `post_mime_type`='image/jpeg'");
+	$res = $db->prepare("DELETE FROM `wpmk_posts` WHERE (`post_name` LIKE 'image-%' OR `post_name` REGEXP '[0-9]{13}') AND `post_mime_type`='image/jpeg'");
 	$res->execute();
 	$postDeleted += $res->rowCount();
 
@@ -100,16 +100,18 @@
 	$nbImagesDel = 0;
 
 	foreach($folders as $folder) {
-		if ($handle = opendir($folder)) {
-		    while (false !== ($entry = readdir($handle))) {
-		        if ($entry != "." && $entry != "..") {
-		        	if(preg_match("/image-(.*).jpeg/", $entry, $output_array)) {
-		        		unlink($folder.'/'.$entry);
-		        		$nbImagesDel++;
-		        	}
-		        }
-		    }
-		    closedir($handle);
+		if (file_exists($folder)) {
+			if ($handle = opendir($folder)) {
+				while (false !== ($entry = readdir($handle))) {
+					if ($entry != "." && $entry != "..") {
+						if(preg_match("/image-(.*).jpeg/", $entry, $output_array)) {
+							unlink($folder.'/'.$entry);
+							$nbImagesDel++;
+						}
+					}
+				}
+				closedir($handle);
+			}
 		}
 	}
 	echo "$nbImagesDel images supprimées !<br>";
