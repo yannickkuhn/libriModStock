@@ -473,15 +473,31 @@ class SyncProductsCommand extends Command
             // Utiliser la catégorie d'occasion
             $category = $this->categorie_occasion;
 
-            // TODO : RECUPERER LA TVA DU PRODUIT NEUF S'IL EXISTE ICI !
+            // Récupérer le produit neuf
+
             $vat = "réduit";
-
-            // TODO : RECUPERER LA DESCRIPTION DU PRODUIT NEUF S'IL EXISTE ICI !
             $description = null;
-
-            // TODO : RECUPERER LES DIMENSIONS DU PRODUIT NEUF S'IL EXISTE ICI !
-
             $price = $localProduct->getAssocNetTotal();
+            $length = 0;
+            $width = 0;
+            $height = 0;
+
+            $localOriginalProduct = $em->getRepository('AppBundle:Product')->findOneBy(["ean" => $localProduct->getEan()]);
+            if(null !== $localOriginalProduct) {
+
+                var_dump('Produit trouve : '.$localOriginalProduct->getEan());
+
+                $length = $localOriginalProduct->getWideness();
+                $width = $localOriginalProduct->getThickness();
+                $height = $localOriginalProduct->getHeight();
+
+                $description = '';
+                $url_description = str_replace("%EAN%", $localProduct->getEan(), $this->url_resume);
+                $description = (file_get_contents($url_description) != 'erreur resume non trouve') ? file_get_contents($url_description) : '';
+
+                if($localOriginalProduct->getVat1() == '20.00')
+                    $vat = "Standard";
+            }  
 
             $data_product = array (
                 'name'              => $localProduct->getAssocTitle(),
