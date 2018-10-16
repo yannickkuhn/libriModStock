@@ -31,6 +31,12 @@ class SyncProductsCommand extends Command
 
     private $excluded_librisoft_categories;
     private $sync_categories;
+    
+    private $md5_sans_visuel;
+    private $id_sans_visuel;
+    private $url_sans_visuel;
+    private $url_image;
+    private $url_resume;
 
     public function __construct(EntityManagerInterface $em, LoggerInterface $logger, \Swift_Mailer $mailer)
     {
@@ -57,6 +63,12 @@ class SyncProductsCommand extends Command
             "340" => "173", "400" => "174", "410" => "175", "420" => "176", 
             "500" => "178", "510" => "179"];
         $this->logStep = 50;
+
+        $this->md5_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
+        $this->id_sans_visuel = 166734;
+        $this->url_sans_visuel = "http://zenobi.local/wp-content/uploads/2018/10/sans-visuel-2.png";
+        $this->url_image = "http://zenobi.local/2dcom/outils/fakeimage.php?isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED&ean=%EAN%";
+        $this->url_resume = "'http://zenobi.local/2dcom/outils/fakeresume.php?user=wsbddi&pw=ErG2i8Aj&ean=%EAN%";
 
         parent::__construct();
     }
@@ -279,7 +291,8 @@ class SyncProductsCommand extends Command
             }
 
             $description = '';
-            $description = (file_get_contents('http://zenobi.local/2dcom/outils/fakeresume.php?user=wsbddi&pw=ErG2i8Aj&ean=' . $localProduct->getEan()) != 'erreur resume non trouve') ? file_get_contents('http://zenobi.local/2dcom/outils/fakeresume.php?user=wsbddi&pw=ErG2i8Aj&ean=' . $localProduct->getEan()) : '';
+            $url_description = str_replace("%EAN", $localProduct->getEan(), $this->url_resume);
+            $description = (file_get_contents($url_description) != 'erreur resume non trouve') ? file_get_contents($url_description) : '';
 
             $price = $localProduct->getNetTotal();
                 
@@ -340,10 +353,10 @@ class SyncProductsCommand extends Command
                 ]    
             );
 
-            $product_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
-            $url_sans_visuel = "http://zenobi.local/wp-content/uploads/2018/10/sans-visuel-2.png";
-            $id_sans_visuel = 166734;
-            $url = 'http://zenobi.local/2dcom/outils/fakeimage.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
+            $product_sans_visuel = $this->md5_sans_visuel;
+            $url_sans_visuel = $this->url_sans_visuel;
+            $id_sans_visuel = $this->id_sans_visuel;
+            $url = str_replace("%EAN", $localProduct->getEan(), $this->url_image);
 
             if(md5(file_get_contents($url)) === $product_sans_visuel) {
                 $nameImage = 'sans-visuel';
