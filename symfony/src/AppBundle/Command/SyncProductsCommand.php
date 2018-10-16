@@ -342,12 +342,17 @@ class SyncProductsCommand extends Command
             );
 
             $product_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
+            $url_sans_visuel = "http://zenobi.local/wp-content/uploads/2018/10/sans-visuel-2.png";
+            $id_sans_visuel = 166734;
             $url = 'http://zenobi.local/2dcom/outils/fakeimage.php?ean='.$localProduct->getEan().'&isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED';
 
             if(md5(file_get_contents($url)) === $product_sans_visuel) {
                 $nameImage = 'sans-visuel';
+                $url = $url_sans_visuel;
+                $id = $id_sans_visuel;
             } else {
                 $nameImage = $localProduct->getEan();
+                $id = null;
             }
 
             if($distImage == false) {
