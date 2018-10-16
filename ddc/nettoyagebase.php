@@ -52,25 +52,25 @@
 
 	// PARTIE 1
 
-	$response = $db->query("SELECT * FROM `wpmk_posts` WHERE (`post_name` LIKE 'image-%' OR `post_name` REGEXP '[0-9]{13}') AND `post_mime_type`='image/jpeg'");
+	$response = $db->query("SELECT * FROM `wpmk_posts` WHERE (`post_name` LIKE 'image-%' OR `post_name` REGEXP '[0-9]{13}') AND (`post_mime_type`='image/jpeg' OR `post_mime_type`='image/png')");
 	while ($data = $response->fetch()) {
 		$res = $db->prepare("DELETE FROM wpmk_postmeta WHERE post_id = '".$data['ID']."'");
 		$res->execute();
 		$metaDeleted += $res->rowCount();
 	}
-	$res = $db->prepare("DELETE FROM `wpmk_posts` WHERE (`post_name` LIKE 'image-%' OR `post_name` REGEXP '[0-9]{13}') AND `post_mime_type`='image/jpeg'");
+	$res = $db->prepare("DELETE FROM `wpmk_posts` WHERE (`post_name` LIKE 'image-%' OR `post_name` REGEXP '[0-9]{13}') AND (`post_mime_type`='image/jpeg' OR `post_mime_type`='image/png')");
 	$res->execute();
 	$postDeleted += $res->rowCount();
 
 	// PARTIE 2
 
-	$response = $db->query("SELECT * FROM `wpmk_posts` WHERE `post_title` = '' AND `post_mime_type`='image/jpeg'");
+	$response = $db->query("SELECT * FROM `wpmk_posts` WHERE `post_title` = '' AND (`post_mime_type`='image/jpeg' OR `post_mime_type`='image/png')");
 	while ($data = $response->fetch()) {
 		$res = $db->prepare("DELETE FROM wpmk_postmeta WHERE post_id = '".$data['ID']."'");
 		$res->execute();
 		$metaDeleted += $res->rowCount();
 	}
-	$res = $db->prepare("DELETE FROM `wpmk_posts` WHERE `post_title` = '' AND `post_mime_type`='image/jpeg'");
+	$res = $db->prepare("DELETE FROM `wpmk_posts` WHERE `post_title` = '' AND (`post_mime_type`='image/jpeg' OR `post_mime_type`='image/png')");
 	$res->execute();
 	$postDeleted += $res->rowCount();
 
