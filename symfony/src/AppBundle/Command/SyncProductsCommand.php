@@ -208,17 +208,31 @@ class SyncProductsCommand extends Command
                     $currentCreatedProductsNb = 0;
                 }
 
-                if(!in_array($localProduct->getEan(), $products)) {
-                    // Si on peut continuer, on est dans le cas d'un ajout de produit
-                    $ean = $localProduct->getEan();
-                    //$logger->info('produit '.$ean.' à ajouter !');
-                    $idproduct = 0;
+                // PRODUITS NEUFS
+                if($localProduct instanceof Product || $localProduct instanceof AssocProduct) {
 
-                    $data_product = $this->getLocalProduct($idproduct, $ean, false, 'create');
-                    if(null !== $data_product && is_array($data_product)) {
-                        $data_batch['create'][] = $data_product;
-                        $currentCreatedProductsNb ++;
-                        $indice++;
+                    if($localProduct instanceof Product) {
+                        $ean = $localProduct->getEan();
+                    } else {
+                        $ean = $localProduct->getAssocEan();
+                    }
+
+                    if(!in_array($ean, $products)) {
+                        // Si on peut continuer, on est dans le cas d'un ajout de produit
+                        
+                        //$logger->info('produit '.$ean.' à ajouter !');
+                        $idproduct = 0;
+
+                        if($localProduct instanceof Product) {
+                            $data_product = $this->getLocalProduct($idproduct, $ean, false, 'create');
+                        } else {
+                            $data_product = $this->getLocalAssocProduct($idproduct, $ean, false, 'create');
+                        }
+                        if(null !== $data_product && is_array($data_product)) {
+                            $data_batch['create'][] = $data_product;
+                            $currentCreatedProductsNb ++;
+                            $indice++;
+                        }
                     }
                 }
 
@@ -250,7 +264,7 @@ class SyncProductsCommand extends Command
         }
     }
 
-    private function getLocalProduct($idproduct, $ean, $distImage = false, $action = 'update', $occasion = false)
+    private function getLocalProduct($idproduct, $ean, $distImage = false, $action = 'update')
     {
         $em = $this->em;
         $logger = $this->logger;
@@ -421,6 +435,44 @@ class SyncProductsCommand extends Command
         } else {
             return false;
         }
+    }
+
+    private function getLocalAssocProduct($idproduct, $assocEan, $distImage = false, $action = 'update')
+    {
+        $em = $this->em;
+        $logger = $this->logger;
+
+        if('update' !== $action && 'create' !== $action) {
+            $logger->error('L\'action demandée pour cette fonction est incorrecte');
+            return false;
+        }
+
+        var_dump($assocEan);
+
+        $localProduct = $em->getRepository('AppBundle:AssocProduct')->findOneBy([
+            'assocEan' => $assocEan
+        ]);
+
+        if(null !== $localProduct) {
+
+            $stock = $em->getRepository('AppBundle:Stock')->findOneBy(["ean" => $localProduct->getAssocEan()]);
+            $stock_qte = 0;
+
+            if(null !== $stock && 0 < $stock->getQuantity())
+                $stock_qte = $stock->getQuantity(); 
+            else {
+                // Product not in stock
+                if($action == "update") {
+                    return "todelete";
+                } else {
+                    var_dump("Produit d'occasion ".$localProduct->getAssocEan()." pas en stock");
+                    return false;
+                } 
+            }
+        }
+
+        var_dump($localProduct);
+        die();
     }
 
     private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
