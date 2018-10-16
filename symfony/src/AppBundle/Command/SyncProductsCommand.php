@@ -67,8 +67,8 @@ class SyncProductsCommand extends Command
         $this->md5_sans_visuel = "d8d9866d9c78d0a5dd5c736a5a1b61e3";
         $this->id_sans_visuel = 166734;
         $this->url_sans_visuel = "http://zenobi.local/wp-content/uploads/2018/10/sans-visuel-2.png";
-        $this->url_image = "http://zenobi.local/2dcom/outils/fakeimage.php?isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED&ean=%EAN%";
-        $this->url_resume = "'http://zenobi.local/2dcom/outils/fakeresume.php?user=wsbddi&pw=ErG2i8Aj&ean=%EAN%";
+        $this->url_image = "http://bddi.2dcom.fr/LocalImageExists.php?isize=medium&gencod=3025594728601&key=mZfH7ltnWECPwoED&ean=%EAN%";
+        $this->url_resume = "http://bddi.2dcom.fr/GetResumeUtf8.php?user=wsbddi&pw=ErG2i8Aj&ean=%EAN%";
 
         parent::__construct();
     }
@@ -221,7 +221,7 @@ class SyncProductsCommand extends Command
 
             // Dernière boucle
             if($currentCreatedProductsNb > 0) {
-                $logger->info(print_r($data_batch, true));
+                //$logger->info(print_r($data_batch, true));
                 $ws->post('products/batch', $data_batch);
                 $data_batch['create'] = [];
                 $createdProductsNb += $currentCreatedProductsNb;
@@ -291,7 +291,7 @@ class SyncProductsCommand extends Command
             }
 
             $description = '';
-            $url_description = str_replace("%EAN", $localProduct->getEan(), $this->url_resume);
+            $url_description = str_replace("%EAN%", $localProduct->getEan(), $this->url_resume);
             $description = (file_get_contents($url_description) != 'erreur resume non trouve') ? file_get_contents($url_description) : '';
 
             $price = $localProduct->getNetTotal();
@@ -356,7 +356,7 @@ class SyncProductsCommand extends Command
             $product_sans_visuel = $this->md5_sans_visuel;
             $url_sans_visuel = $this->url_sans_visuel;
             $id_sans_visuel = $this->id_sans_visuel;
-            $url = str_replace("%EAN", $localProduct->getEan(), $this->url_image);
+            $url = str_replace("%EAN%", $localProduct->getEan(), $this->url_image);
 
             if(md5(file_get_contents($url)) === $product_sans_visuel) {
                 $nameImage = 'sans-visuel';
@@ -386,8 +386,12 @@ class SyncProductsCommand extends Command
                 $logger->info(md5(file_get_contents($distImageSrc))." - ".md5(file_get_contents($url)));
                 if( 
                     ( (md5(file_get_contents($distImageSrc)) === $product_sans_visuel) && (md5(file_get_contents($url)) !== $product_sans_visuel) )
-                    ||
-                    (md5(file_get_contents($distImageSrc)) !== md5(file_get_contents($url))) 
+                    
+                    // CODE NON FONCTIONNEL - LES CODES MD5 SONT REMIS A JOUR SYSTEMATIQUEMENT ALORS
+                    // QU'IL S'AGIT DE LA MEME IMAGE
+                    //||
+                    //(md5(file_get_contents($distImageSrc)) !== md5(file_get_contents($url))) 
+                
                 ) {
                     // On ne mets à jour l'image que si c'est nécessaire
                     $logger->info('Image de produit à mettre à jour : '.$ean);
