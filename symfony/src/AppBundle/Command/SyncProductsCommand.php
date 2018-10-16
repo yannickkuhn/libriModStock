@@ -499,6 +499,8 @@ class SyncProductsCommand extends Command
                     $vat = "Standard";
             }  
 
+            // TODO : Il faut encore gérer l'image, les dates et les attributs pour les occasions
+
             $data_product = array (
                 'name'              => $localProduct->getAssocTitle(),
                 'sku'               => $localProduct->getAssocEan(),
@@ -508,9 +510,9 @@ class SyncProductsCommand extends Command
                 'stock_quantity'    => $stock_qte,
                 'weight'            => $localProduct->getAssocWeight(),
                 'dimensions'        => array (
-                                                'length' => 0,
-                                                'width' => 0,
-                                                'height' => 0,
+                                                'length' => $length,
+                                                'width' => $width,
+                                                'height' => $height,
                                         ),
                 'description'       => $description,
                 'categories'        => [ [ 'id' => $category ] ],
@@ -546,8 +548,6 @@ class SyncProductsCommand extends Command
             print_r($data_product);
             die();
         }
-
-        //die();
     }
 
     private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
