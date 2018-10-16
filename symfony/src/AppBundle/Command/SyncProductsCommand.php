@@ -383,7 +383,7 @@ class SyncProductsCommand extends Command
             } else {
                 $distImageId = $distImage['id'];
                 $distImageSrc = $distImage['src'];
-                $logger->info(md5(file_get_contents($distImageSrc))." - ".md5(file_get_contents($url)));
+                //$logger->info(md5(file_get_contents($distImageSrc))." - ".md5(file_get_contents($url)));
                 if( 
                     ( (md5(file_get_contents($distImageSrc)) === $product_sans_visuel) && (md5(file_get_contents($url)) !== $product_sans_visuel) )
                     
