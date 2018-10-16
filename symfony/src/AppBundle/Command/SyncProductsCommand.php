@@ -208,9 +208,19 @@ class SyncProductsCommand extends Command
 
             }
 
-            $logger->info('Nombre de produits à ajouter : '.$createdProductsNb.'');
-            $logger->info('Nombre de produits mis à jour : '.$updatedProductsNb.'');
-            $logger->info('Synchronisation terminée pour les mises à jour de produits !');
+            // Dernière boucle
+            if($currentCreatedProductsNb > 0) {
+                $logger->info(print_r($data_batch, true));
+                $ws->post('products/batch', $data_batch);
+                $data_batch['create'] = [];
+                $createdProductsNb += $currentCreatedProductsNb;
+                $logger->info('Nombre de produits total ajoutés : '.$createdProductsNb);
+                $currentCreatedProductsNb = 0;
+            }
+
+            $logger->info('[FIN] - Nombre de produits à ajouter : '.$createdProductsNb.'');
+            $logger->info('[FIN] - Nombre de produits mis à jour : '.$updatedProductsNb.'');
+            $logger->info('[FIN] - Synchronisation terminée pour les mises à jour de produits !');
 
             $this->send_mail(
                 '[SITE INTERNET] - Synchronisation des produits à '.date('d/m/Y à H:i:s'),
