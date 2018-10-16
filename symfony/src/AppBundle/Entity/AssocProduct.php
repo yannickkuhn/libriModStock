@@ -51,16 +51,16 @@ class AssocProduct
     /**
      * @var string
      *
-     * @ORM\Column(name="prod_prixht", type="decimal", precision=10, scale=2, options={"default":0})
+     * @ORM\Column(name="prod_assoc_prixht", type="decimal", precision=10, scale=2, options={"default":0})
      */
-    private $grossTotal;
+    private $assocGrossTotal;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prod_prixttc", type="decimal", precision=10, scale=2, options={"default":0})
+     * @ORM\Column(name="prod_assoc_prixttc", type="decimal", precision=10, scale=2, options={"default":0})
      */
-    private $netTotal;
+    private $assocNetTotal;
 
     /**
      * @var \DateTime
@@ -290,49 +290,49 @@ class AssocProduct
     /**
      * Set grossTotal
      *
-     * @param string $grossTotal
+     * @param string $assocGrossTotal
      *
      * @return AssocProduct
      */
-    public function setGrossTotal($grossTotal)
+    public function setAssocGrossTotal($assocGrossTotal)
     {
-        $this->grossTotal = $grossTotal;
+        $this->assocGrossTotal = $assocGrossTotal;
 
         return $this;
     }
 
     /**
-     * Get grossTotal
+     * Get assocGrossTotal
      *
      * @return string
      */
-    public function getGrossTotal()
+    public function getAssocGrossTotal()
     {
-        return $this->grossTotal;
+        return $this->assocGrossTotal;
     }
 
     /**
-     * Set netTotal
+     * Set assocNetTotal
      *
-     * @param string $netTotal
+     * @param string $assocNetTotal
      *
      * @return AssocProduct
      */
-    public function setNetTotal($netTotal)
+    public function setAssocNetTotal($assocNetTotal)
     {
-        $this->netTotal = $netTotal;
+        $this->assocNetTotal = $assocNetTotal;
 
         return $this;
     }
 
     /**
-     * Get netTotal
+     * Get assocNetTotal
      *
      * @return string
      */
-    public function getNetTotal()
+    public function getAssocNetTotal()
     {
-        return $this->netTotal;
+        return $this->assocNetTotal;
     }
 
     /**
