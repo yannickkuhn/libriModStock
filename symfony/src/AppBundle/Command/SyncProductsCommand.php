@@ -171,7 +171,6 @@ class SyncProductsCommand extends Command
             // TODO : Les produits d'occasions ne sont pas inclus pour l'instant
             $localProducts = $em->getRepository('AppBundle:Product')->findBy([
                 'isDeleted' => '0',
-                'ean' => '9782253082576'
             ]);
 
             $indice = 0;
@@ -361,6 +360,7 @@ class SyncProductsCommand extends Command
 
                 $data_product['images'] = [
                     [
+                        'id' => $id,
                         'src' => $url, 
                         'position' => 0,
                         'name' => $nameImage
