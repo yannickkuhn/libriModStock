@@ -31,6 +31,7 @@ class SyncProductsCommand extends Command
 
     private $excluded_librisoft_categories;
     private $sync_categories;
+    private $categorie_occasion;
     
     private $md5_sans_visuel;
     private $id_sans_visuel;
@@ -62,6 +63,7 @@ class SyncProductsCommand extends Command
             "310" => "170", "315" => "186", "320" => "171", "330" => "172", 
             "340" => "173", "400" => "174", "410" => "175", "420" => "176", 
             "500" => "178", "510" => "179"];
+        $this->categorie_occasion = "2416";
         $this->logStep = 50;
 
         $this->md5_sans_visuel = "6304f32c669087188273de7c34ec40b8";
@@ -119,8 +121,6 @@ class SyncProductsCommand extends Command
                     'timeout' => 7200
                 ]
             );
-
-            //var_dump($ws->get(''));
 
             $logger->info('OK pour le WS');
 
@@ -245,7 +245,7 @@ class SyncProductsCommand extends Command
         }
     }
 
-    private function getLocalProduct($idproduct, $ean, $distImage = false, $action = 'update')
+    private function getLocalProduct($idproduct, $ean, $distImage = false, $action = 'update', $occasion = false)
     {
         $em = $this->em;
         $logger = $this->logger;
