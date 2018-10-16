@@ -10,6 +10,8 @@ use Psr\Log\LoggerInterface;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\OrderHeader;
 use AppBundle\Entity\OrderLine;
+use AppBundle\Entity\Product;
+use AppBundle\Entity\AssocProduct;
 use Symfony\Component\HttpFoundation\Request;
 
 use Automattic\WooCommerce\Client as WsClient;
@@ -123,6 +125,9 @@ class SyncProductsCommand extends Command
             );
 
             $logger->info('OK pour le WS');
+
+            // TODO : Gestion des occasions à faire pour les mises à jour
+            // > Comment détecter un produit d'occasion ? Avec un attribut peut-être ?
 
             for($currentPage = $page; $currentPage < $maxpage; $currentPage ++) {
 
