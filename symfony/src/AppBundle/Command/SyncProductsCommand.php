@@ -465,9 +465,16 @@ class SyncProductsCommand extends Command
                 if($action == "update") {
                     return "todelete";
                 } else {
-                    var_dump("Produit d'occasion ".$localProduct->getAssocEan()." pas en stock");
+                    //var_dump("Produit d'occasion ".$localProduct->getAssocEan()." pas en stock");
                     return false;
                 } 
+
+                // Utiliser la catégorie d'occasion
+                $category = $this->categorie_occasion;
+
+                // TODO : RECUPERER LA TVA DU PRODUIT NEUF S'IL EXISTE ICI !
+
+
             }
         }
 
