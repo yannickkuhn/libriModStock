@@ -5,6 +5,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use AppBundle\Entity\Client;
@@ -188,24 +189,23 @@ class SyncProductsCommand extends Command
             }
 
             $logger->info('Process de mise à jour des produits terminé');
-
-            $localProducts = new ArrayCollection();
             
             // Produits neufs
-            $localProducts->add(
+            $localNewProducts =
                 $em->getRepository('AppBundle:Product')->findBy([
-                ], [], 10)
-            );
+                ], [], 50);
 
             // Produits d'occasions
-            $localProducts->add(
+            $localAssocProducts =
                 $em->getRepository('AppBundle:AssocProduct')->findBy([
-                ], [])
-            );
+                ], []);
+
+            $localProducts = array_merge($localNewProducts, $localAssocProducts);
 
             $indice = 0;
             $created_per = 10;
             $currentCreatedProductsNb = 0;
+            $msg_ajouts = [];
             $data_batch['create'] = [];
 
             $logger->info('---- NOMBRE DE PRODUITS DEJA MIS A JOUR : '.count($products).' -----');
@@ -217,7 +217,11 @@ class SyncProductsCommand extends Command
                     $ws->post('products/batch', $data_batch);
                     $data_batch['create'] = [];
                     $createdProductsNb += $currentCreatedProductsNb;
-                    $logger->info('Nombre de produits total ajoutés : '.$createdProductsNb);
+                    if(!isset($msg_ajouts[$createdProductsNb])) {
+                        // Eviter d'afficher 100 fois le même message dans le log
+                        $logger->info('Nombre de produits total ajoutés : '.$createdProductsNb);
+                    }
+                    $msg_ajouts[$createdProductsNb] = true;
                     $currentCreatedProductsNb = 0;
                 }
 
@@ -294,7 +298,11 @@ class SyncProductsCommand extends Command
         if(null !== $localProduct) {
 
             if($localProduct->getIsDeleted() == 1) {
-                $logger->info('Produit à supprimer (prod_deleted = 1 - '.$ean);
+                if('update' === $action) {
+                    $logger->info('Produit à supprimer (prod_deleted = 1 - '.$ean);
+                } else {
+                    $logger->info('Produit inexistant, qui ne sera pas ajouté (prod_deleted = 1 - '.$ean);
+                }
                 return "todelete";
             }
 
