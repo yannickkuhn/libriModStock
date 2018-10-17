@@ -186,9 +186,8 @@ class SyncProductsCommand extends Command
             $logger->info('Process de mise à jour des produits terminé');
 
             // TODO : Les produits d'occasions ne sont pas inclus pour l'instant
-            $localProducts = $em->getRepository('AppBundle:Product')->findBy([
-                'isDeleted' => '0',
-            ]);
+            $localProducts = $em->getRepository('AppBundle:AssocProduct')->findBy([
+            ], [], 10);
 
             $indice = 0;
             $created_per = 10;
@@ -297,9 +296,7 @@ class SyncProductsCommand extends Command
                 } else {
                     return false;
                 }
-                
             }
-
             //$logger->info('Produit trouvé');
 
             if(null !== $localProduct->getCategory1()) {
@@ -372,57 +369,7 @@ class SyncProductsCommand extends Command
                 ]    
             );
 
-            $product_sans_visuel = $this->md5_sans_visuel;
-            $url_sans_visuel = $this->url_sans_visuel;
-            $id_sans_visuel = $this->id_sans_visuel;
-            $url = str_replace("%EAN%", $localProduct->getEan(), $this->url_image);
-
-            if(md5(file_get_contents($url)) === $product_sans_visuel) {
-                $nameImage = 'sans-visuel';
-                $url = $url_sans_visuel;
-                $id = $id_sans_visuel;
-            } else {
-                $nameImage = $localProduct->getEan();
-                $id = null;
-            }
-
-            if($distImage == false) {
-
-                // Pour l'instant, on mets à jour l'image uniquement s'il n'y en a pas sur le serveur
-
-                $data_product['images'] = [
-                    [
-                        'id' => $id,
-                        'src' => $url, 
-                        'position' => 0,
-                        'name' => $nameImage
-                    ]
-                ];
-
-            } else {
-                $distImageId = $distImage['id'];
-                $distImageSrc = $distImage['src'];
-                //$logger->info(md5(file_get_contents($distImageSrc))." - ".md5(file_get_contents($url)));
-                if( 
-                    ( (md5(file_get_contents($distImageSrc)) === $product_sans_visuel) && (md5(file_get_contents($url)) !== $product_sans_visuel) )
-                    
-                    // CODE NON FONCTIONNEL - LES CODES MD5 SONT REMIS A JOUR SYSTEMATIQUEMENT ALORS
-                    // QU'IL S'AGIT DE LA MEME IMAGE
-                    //||
-                    //(md5(file_get_contents($distImageSrc)) !== md5(file_get_contents($url))) 
-                
-                ) {
-                    // On ne mets à jour l'image que si c'est nécessaire
-                    $logger->info('Image de produit à mettre à jour : '.$ean);
-                    $data_product['images'] = [
-                        [
-                            'src' => $url, 
-                            'position' => 0,
-                            'name' => $nameImage
-                        ]
-                    ];
-                }
-            }
+            $data_product["images"] = $this->getDataProductImage($localProduct->getEan(), $distImage);
 
             if($action == 'update') {
                 $data_product['id'] = $idproduct;
@@ -478,6 +425,7 @@ class SyncProductsCommand extends Command
             $vat = "réduit";
             $description = null;
             $price = $localProduct->getAssocNetTotal();
+            $sale_price = $price;
             $length = 0;
             $width = 0;
             $height = 0;
@@ -490,6 +438,8 @@ class SyncProductsCommand extends Command
                 $length = $localOriginalProduct->getWideness();
                 $width = $localOriginalProduct->getThickness();
                 $height = $localOriginalProduct->getHeight();
+
+                $price = $localOriginalProduct->getNetTotal();
 
                 $description = '';
                 $url_description = str_replace("%EAN%", $localProduct->getEan(), $this->url_resume);
@@ -506,6 +456,7 @@ class SyncProductsCommand extends Command
                 'sku'               => $localProduct->getAssocEan(),
                 'price'             => $price,
                 'regular_price'     => $price,
+                'sale_price'        => $sale_price,
                 'tax_class'         => $vat,
                 'stock_quantity'    => $stock_qte,
                 'weight'            => $localProduct->getAssocWeight(),
@@ -522,6 +473,26 @@ class SyncProductsCommand extends Command
                 'in_stock'          => true,
                 'purchaseable'      => true,
                 'attributes'        => [
+                    [
+                        'name'      => 'Produit d\'occasion',
+                        'slug'      => 'produit-occasion',
+                        'position'  => '0',
+                        'visible'   => true,
+                        'variation' => false,
+                        'options'   => [
+                                0   => 'oui'
+                        ]
+                    ],
+                    [
+                        'name'      => 'Référence du produit neuf',
+                        'slug'      => 'reference-du-produit-neuf',
+                        'position'  => '0',
+                        'visible'   => true,
+                        'variation' => false,
+                        'options'   => [
+                                0   => (null !== $localOriginalProduct) ? $localOriginalProduct->getEan() : 'aucune'
+                        ]
+                    ],
                     [
                         'name'      => 'Auteur',
                         'slug'      => 'auteur',
@@ -545,9 +516,76 @@ class SyncProductsCommand extends Command
                 ]    
             );
 
-            print_r($data_product);
-            die();
+            $data_product["images"] = $this->getDataProductImage($localProduct->getEan(), $distImage);
+
+            if($action == 'update') {
+                $data_product['id'] = $idproduct;
+                $data_product['updated_at'] = date('Y-m-d\TH:i:s');
+            }
+            else
+                $data_product['created_at'] = date('Y-m-d\TH:i:s');
+
+            return $data_product;
+        } else {
+            return false;
         }
+    }
+
+    private function getDataProductImage($ean, $distImage = false)
+    {
+        $product_sans_visuel = $this->md5_sans_visuel;
+        $url_sans_visuel = $this->url_sans_visuel;
+        $id_sans_visuel = $this->id_sans_visuel;
+        $url = str_replace("%EAN%", $ean, $this->url_image);
+
+        if(md5(file_get_contents($url)) === $product_sans_visuel) {
+            $nameImage = 'sans-visuel';
+            $url = $url_sans_visuel;
+            $id = $id_sans_visuel;
+        } else {
+            $nameImage = $ean;
+            $id = null;
+        }
+
+        if($distImage == false) {
+
+            // Pour l'instant, on mets à jour l'image uniquement s'il n'y en a pas sur le serveur
+
+            $data_product_images = [
+                [
+                    'id' => $id,
+                    'src' => $url, 
+                    'position' => 0,
+                    'name' => $nameImage
+                ]
+            ];
+
+        } else {
+            $distImageId = $distImage['id'];
+            $distImageSrc = $distImage['src'];
+            //$logger->info(md5(file_get_contents($distImageSrc))." - ".md5(file_get_contents($url)));
+            if( 
+                ( (md5(file_get_contents($distImageSrc)) === $product_sans_visuel) && (md5(file_get_contents($url)) !== $product_sans_visuel) )
+                
+                // CODE NON FONCTIONNEL - LES CODES MD5 SONT REMIS A JOUR SYSTEMATIQUEMENT ALORS
+                // QU'IL S'AGIT DE LA MEME IMAGE
+                //||
+                //(md5(file_get_contents($distImageSrc)) !== md5(file_get_contents($url))) 
+            
+            ) {
+                // On ne mets à jour l'image que si c'est nécessaire
+                $logger->info('Image de produit à mettre à jour : '.$ean);
+                $data_product_images = [
+                    [
+                        'src' => $url, 
+                        'position' => 0,
+                        'name' => $nameImage
+                    ]
+                ];
+            }
+        }
+
+        return $data_product_images;
     }
 
     private function send_mail($sujet = null, $message_txt = null, $mail = null, $header = null)
