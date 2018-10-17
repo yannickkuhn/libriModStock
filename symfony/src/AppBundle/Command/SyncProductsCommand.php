@@ -516,7 +516,13 @@ class SyncProductsCommand extends Command
                 ]    
             );
 
-            $data_product["images"] = $this->getDataProductImage($localProduct->getEan(), $distImage);
+            if(preg_match('/^978[0-9]+/', $localProduct->getEan(), $output_array) || preg_match('/^979[0-9]+/', $localProduct->getEan(), $output_array)) {
+                // Produit d'origine en 978
+                $data_product["images"] = $this->getDataProductImage($localProduct->getEan(), $distImage);
+            } else {
+                // Sinon visuel par défaut
+                $data_product["images"] = $this->getDataProductImage('sans-visuel', $distImage);
+            }
 
             if($action == 'update') {
                 $data_product['id'] = $idproduct;
@@ -538,7 +544,7 @@ class SyncProductsCommand extends Command
         $id_sans_visuel = $this->id_sans_visuel;
         $url = str_replace("%EAN%", $ean, $this->url_image);
 
-        if(md5(file_get_contents($url)) === $product_sans_visuel) {
+        if( (md5(file_get_contents($url)) === $product_sans_visuel) || $ean == 'sans-visuel' ) {
             $nameImage = 'sans-visuel';
             $url = $url_sans_visuel;
             $id = $id_sans_visuel;
