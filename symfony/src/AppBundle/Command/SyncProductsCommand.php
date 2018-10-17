@@ -146,8 +146,9 @@ class SyncProductsCommand extends Command
                     $cur_products[$wsproduct['id']] = $wsproduct['sku'];
 
                     // s'il y a une image dans le produit, on cherche l'id
-                    if(is_array($wsproduct["images"]) && !empty($wsproduct["images"][0])) {
+                    if(is_array($wsproduct["images"]) && !empty($wsproduct["images"][0]) && false === preg_match('/placeholder/', $wsproduct["images"][0]["src"])) {
                         $cur_images[$wsproduct['id']] = $wsproduct["images"][0];
+                        //$logger->info("produit ".$wsproduct['sku']." possède déjà une image : ".print_r($wsproduct["images"][0], true));
                     } else {
                         $cur_images[$wsproduct['id']] = false;
                     }
