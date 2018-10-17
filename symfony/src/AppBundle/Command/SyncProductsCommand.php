@@ -166,6 +166,13 @@ class SyncProductsCommand extends Command
                 foreach($cur_products as $idproduct => $ean) {
 
                     $data_product = $this->getLocalProduct($idproduct, $ean, $cur_images[$idproduct]);
+                    if($data_product == false) {
+                        var_dump("Pour cette mise à jour, le produit $ean n'est pas un produit neuf, Recherche dans les occasions ...");
+                        $data_product = $this->getLocalAssocProduct($idproduct, $ean, $cur_images[$idproduct]);
+                        if($data_product == false) {
+                            var_dump("Produit d'occasion trouvé !");
+                        }
+                    }
                     if($data_product == "todelete") {
                         $ws->delete('products/'.$idproduct, ['force' => true]);
                         $deletedProductsNb++;
