@@ -126,9 +126,6 @@ class SyncProductsCommand extends Command
 
             $logger->info('OK pour le WS');
 
-            // TODO : Gestion des occasions à faire pour les mises à jour
-            // > Comment détecter un produit d'occasion ? Avec un attribut peut-être ?
-
             for($currentPage = $page; $currentPage < $maxpage; $currentPage ++) {
 
                 $currentUpdatedProductsNb = 0;
@@ -167,10 +164,10 @@ class SyncProductsCommand extends Command
 
                     $data_product = $this->getLocalProduct($idproduct, $ean, $cur_images[$idproduct]);
                     if($data_product == false) {
-                        var_dump("Pour cette mise à jour, le produit $ean n'est pas un produit neuf, Recherche dans les occasions ...");
+                        //var_dump("Pour cette mise à jour, le produit $ean n'est pas un produit neuf, Recherche dans les occasions ...");
                         $data_product = $this->getLocalAssocProduct($idproduct, $ean, $cur_images[$idproduct]);
                         if($data_product == false) {
-                            var_dump("Produit d'occasion trouvé !");
+                            //var_dump("Produit d'occasion trouvé !");
                         }
                     }
                     if($data_product == "todelete") {
@@ -192,9 +189,19 @@ class SyncProductsCommand extends Command
 
             $logger->info('Process de mise à jour des produits terminé');
 
-            // TODO : Les produits d'occasions ne sont pas inclus pour l'instant
-            $localProducts = $em->getRepository('AppBundle:AssocProduct')->findBy([
-            ], [], 10);
+            $localProducts = new ArrayCollection();
+            
+            // Produits neufs
+            $localProducts->add(
+                $em->getRepository('AppBundle:Product')->findBy([
+                ], [], 10)
+            );
+
+            // Produits d'occasions
+            $localProducts->add(
+                $em->getRepository('AppBundle:AssocProduct')->findBy([
+                ], [])
+            );
 
             $indice = 0;
             $created_per = 10;
@@ -417,12 +424,12 @@ class SyncProductsCommand extends Command
                 if($action == "update") {
                     return "todelete";
                 } else {
-                    var_dump("Produit d'occasion ".$localProduct->getAssocEan()." pas en stock");
+                    //var_dump("Produit d'occasion ".$localProduct->getAssocEan()." pas en stock");
                     return false;
                 } 
             }
 
-            var_dump('ok');
+            //var_dump('ok');
 
             // Utiliser la catégorie d'occasion
             $category = $this->categorie_occasion;
@@ -440,7 +447,7 @@ class SyncProductsCommand extends Command
             $localOriginalProduct = $em->getRepository('AppBundle:Product')->findOneBy(["ean" => $localProduct->getEan()]);
             if(null !== $localOriginalProduct) {
 
-                var_dump('Produit trouve : '.$localOriginalProduct->getEan());
+                //var_dump('Produit trouve : '.$localOriginalProduct->getEan());
 
                 $length = $localOriginalProduct->getWideness();
                 $width = $localOriginalProduct->getThickness();
@@ -455,8 +462,6 @@ class SyncProductsCommand extends Command
                 if($localOriginalProduct->getVat1() == '20.00')
                     $vat = "Standard";
             }  
-
-            // TODO : Il faut encore gérer l'image, les dates et les attributs pour les occasions
 
             $data_product = array (
                 'name'              => $localProduct->getAssocTitle(),
@@ -497,7 +502,7 @@ class SyncProductsCommand extends Command
                         'visible'   => true,
                         'variation' => false,
                         'options'   => [
-                                0   => (null !== $localOriginalProduct) ? $localOriginalProduct->getEan() : 'aucune'
+                                0   => ($localProduct->getAssocEan() !== $localProduct->getEan()) ? $localProduct->getEan() : 'aucune'
                         ]
                     ],
                     [
