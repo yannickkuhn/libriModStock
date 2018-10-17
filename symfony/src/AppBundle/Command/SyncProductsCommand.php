@@ -539,6 +539,8 @@ class SyncProductsCommand extends Command
 
     private function getDataProductImage($ean, $distImage = false)
     {
+        $data_product_images = null;
+
         $product_sans_visuel = $this->md5_sans_visuel;
         $url_sans_visuel = $this->url_sans_visuel;
         $id_sans_visuel = $this->id_sans_visuel;
